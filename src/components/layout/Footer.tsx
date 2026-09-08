@@ -138,6 +138,12 @@ function TwitterIcon() {
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
+  // Verificar si hay datos de contacto disponibles
+  const hasContactInfo = CONTACT_INFO.email || CONTACT_INFO.phone || CONTACT_INFO.address;
+
+  // Verificar si hay redes sociales disponibles
+  const hasSocialLinks = SOCIAL_LINKS.facebook || SOCIAL_LINKS.instagram || SOCIAL_LINKS.youtube || SOCIAL_LINKS.twitter;
+
   return (
     <footer className="bg-player-bg text-text-inverse">
       <div className="container mx-auto px-4 py-12">
@@ -151,22 +157,30 @@ export function Footer() {
             </p>
           </div>
 
-          {/* Columna de contacto */}
-          <div>
-            <h3 className="font-semibold mb-4">Contato</h3>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a
-                  href={`mailto:${CONTACT_INFO.email}`}
-                  className="text-text-muted hover:text-text-inverse transition-colors"
-                >
-                  {CONTACT_INFO.email}
-                </a>
-              </li>
-              <li className="text-text-muted">{CONTACT_INFO.phone}</li>
-              <li className="text-text-muted">{CONTACT_INFO.address}</li>
-            </ul>
-          </div>
+          {/* Columna de contacto - solo si hay datos */}
+          {hasContactInfo && (
+            <div>
+              <h3 className="font-semibold mb-4">Contato</h3>
+              <ul className="space-y-2 text-sm">
+                {CONTACT_INFO.email && (
+                  <li>
+                    <a
+                      href={`mailto:${CONTACT_INFO.email}`}
+                      className="text-text-muted hover:text-text-inverse transition-colors"
+                    >
+                      {CONTACT_INFO.email}
+                    </a>
+                  </li>
+                )}
+                {CONTACT_INFO.phone && (
+                  <li className="text-text-muted">{CONTACT_INFO.phone}</li>
+                )}
+                {CONTACT_INFO.address && (
+                  <li className="text-text-muted">{CONTACT_INFO.address}</li>
+                )}
+              </ul>
+            </div>
+          )}
 
           {/* Columna de políticas */}
           <div>
@@ -193,25 +207,35 @@ export function Footer() {
         {/* Redes sociales y copyright */}
         <div className="mt-12 pt-8 border-t border-player-border">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Redes sociales */}
-            <div className="flex items-center gap-2">
-              <span className="sr-only">Redes sociais</span>
-              <SocialLink href={SOCIAL_LINKS.facebook} label="Facebook da Rede ADVIR">
-                <FacebookIcon />
-              </SocialLink>
-              <SocialLink href={SOCIAL_LINKS.instagram} label="Instagram da Rede ADVIR">
-                <InstagramIcon />
-              </SocialLink>
-              <SocialLink href={SOCIAL_LINKS.youtube} label="YouTube da Rede ADVIR">
-                <YouTubeIcon />
-              </SocialLink>
-              <SocialLink href={SOCIAL_LINKS.twitter} label="Twitter da Rede ADVIR">
-                <TwitterIcon />
-              </SocialLink>
-            </div>
+            {/* Redes sociales - solo si hay enlaces */}
+            {hasSocialLinks && (
+              <div className="flex items-center gap-2">
+                <span className="sr-only">Redes sociais</span>
+                {SOCIAL_LINKS.facebook && (
+                  <SocialLink href={SOCIAL_LINKS.facebook} label="Facebook da REDE ADVIR">
+                    <FacebookIcon />
+                  </SocialLink>
+                )}
+                {SOCIAL_LINKS.instagram && (
+                  <SocialLink href={SOCIAL_LINKS.instagram} label="Instagram da REDE ADVIR">
+                    <InstagramIcon />
+                  </SocialLink>
+                )}
+                {SOCIAL_LINKS.youtube && (
+                  <SocialLink href={SOCIAL_LINKS.youtube} label="YouTube da REDE ADVIR">
+                    <YouTubeIcon />
+                  </SocialLink>
+                )}
+                {SOCIAL_LINKS.twitter && (
+                  <SocialLink href={SOCIAL_LINKS.twitter} label="Twitter da REDE ADVIR">
+                    <TwitterIcon />
+                  </SocialLink>
+                )}
+              </div>
+            )}
 
             {/* Copyright */}
-            <p className="text-text-muted text-sm text-center">
+            <p className={`text-text-muted text-sm text-center ${!hasSocialLinks ? 'w-full' : ''}`}>
               © {currentYear} {SITE_NAME}. Todos os direitos reservados.
             </p>
           </div>

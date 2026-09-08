@@ -5,8 +5,8 @@
 /** Zona horaria del canal (São Paulo, Brasil) */
 export const CHANNEL_TIMEZONE = 'America/Sao_Paulo';
 
-/** Nombre del canal */
-export const SITE_NAME = 'Rede ADVIR';
+/** Nombre del canal (siempre en mayúsculas) */
+export const SITE_NAME = 'REDE ADVIR';
 
 /** Lema del canal */
 export const SITE_TAGLINE = 'O canal da volta de Jesus';
@@ -20,37 +20,37 @@ export const NAV_ITEMS = [
   { label: 'Sobre', href: '/sobre', isLive: false },
 ] as const;
 
-/** Redes sociales — TODO: confirmar con el cliente */
-export const SOCIAL_LINKS = {
-  // TODO: confirmar con el cliente
-  facebook: 'https://facebook.com/redeadvir',
-  // TODO: confirmar con el cliente
-  instagram: 'https://instagram.com/redeadvir',
-  // TODO: confirmar con el cliente
-  youtube: 'https://youtube.com/redeadvir',
-  // TODO: confirmar con el cliente
-  twitter: 'https://twitter.com/redeadvir',
-} as const;
+/** Redes sociales — null hasta confirmar con el cliente */
+export const SOCIAL_LINKS: {
+  facebook: string | null;
+  instagram: string | null;
+  youtube: string | null;
+  twitter: string | null;
+} = {
+  facebook: null,
+  instagram: null,
+  youtube: null,
+  twitter: null,
+};
 
-/** Enlaces a las apps — TODO: confirmar con el cliente */
+/** Enlaces a las apps (confirmados) */
 export const APP_LINKS = {
-  // TODO: confirmar con el cliente
-  android: 'https://play.google.com/store/apps/details?id=br.net.redeadvir',
-  // TODO: confirmar con el cliente
-  ios: 'https://apps.apple.com/app/rede-advir',
+  android: 'https://play.google.com/store/apps/details?id=com.logicahost.redeadvir',
+  ios: 'https://apps.apple.com/us/app/rede-advir/id6738403202',
 } as const;
 
-/** Datos de contacto — TODO: confirmar con el cliente */
-export const CONTACT_INFO = {
-  // TODO: confirmar con el cliente
-  email: 'contato@redeadvir.net.br',
-  // TODO: confirmar con el cliente
-  phone: '+55 11 0000-0000',
-  // TODO: confirmar con el cliente
-  address: 'São Paulo, SP - Brasil',
-} as const;
+/** Datos de contacto — null hasta confirmar con el cliente */
+export const CONTACT_INFO: {
+  email: string | null;
+  phone: string | null;
+  address: string | null;
+} = {
+  email: null,
+  phone: null,
+  address: null,
+};
 
-/** Información del satélite */
+/** Información del satélite (confirmado) */
 export const SATELLITE_INFO = {
   provider: 'Vivensis',
   channel: '7777',
