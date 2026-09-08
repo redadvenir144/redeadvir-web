@@ -1,11 +1,13 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* Foco visible en todos los elementos interactivos */
+  /* Foco visible para tema azul */
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-600 ring-offset-2;
+    @apply outline-none ring-2 ring-brand-400 ring-offset-2 ring-offset-tv-bg;
   }
 
   /* Respeta prefers-reduced-motion globalmente */
@@ -22,10 +24,35 @@
   /* Tipografía base */
   html {
     @apply text-base antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
 
+  /* Tema oscuro TV como default */
   body {
-    @apply bg-surface text-text-primary;
+    @apply bg-tv-bg text-text-primary font-sans;
+  }
+
+  /* Scrollbar personalizado para tema oscuro */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-tv-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-tv-border rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-text-muted;
+  }
+
+  /* Selection color */
+  ::selection {
+    @apply bg-brand-600/40 text-white;
   }
 }
 
@@ -33,5 +60,45 @@
   /* Área táctil mínima */
   .touch-target {
     @apply min-h-11 min-w-11;
+  }
+
+  /* Card estilo TV con hover glow */
+  .tv-card {
+    @apply bg-tv-card border border-tv-border rounded-xl;
+    @apply transition-all duration-300 ease-out;
+  }
+
+  .tv-card:hover {
+    @apply bg-tv-hover border-brand-600/50 shadow-glow;
+    @apply transform scale-[1.02];
+  }
+
+  /* Gradiente overlay para imágenes */
+  .gradient-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(
+      to top,
+      rgba(10, 10, 15, 0.95) 0%,
+      rgba(10, 10, 15, 0.6) 40%,
+      rgba(10, 10, 15, 0.2) 70%,
+      transparent 100%
+    );
+  }
+
+  /* Text gradient para títulos */
+  .text-gradient {
+    @apply bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-white to-text-secondary;
+  }
+}
+
+@layer utilities {
+  /* Glow en hover */
+  .hover-glow {
+    @apply transition-shadow duration-300;
+  }
+
+  .hover-glow:hover {
+    @apply shadow-glow;
   }
 }

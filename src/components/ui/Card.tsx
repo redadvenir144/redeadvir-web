@@ -3,6 +3,7 @@ import type { ReactNode, HTMLAttributes } from 'react';
 interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
   padding?: 'none' | 'sm' | 'md' | 'lg';
+  hover?: boolean;
 }
 
 const paddingStyles = {
@@ -15,16 +16,18 @@ const paddingStyles = {
 export function Card({
   children,
   padding = 'md',
+  hover = false,
   className = '',
   ...props
 }: CardProps) {
   return (
     <div
       className={[
-        'bg-surface rounded-lg border border-surface-border shadow-sm',
+        'bg-tv-card rounded-xl border border-tv-border',
+        hover && 'transition-all duration-300 hover:bg-tv-hover hover:border-brand-600/30 hover:shadow-glow',
         paddingStyles[padding],
         className,
-      ].join(' ')}
+      ].filter(Boolean).join(' ')}
       {...props}
     >
       {children}

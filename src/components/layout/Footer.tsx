@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import {
   SITE_NAME,
+  SITE_LONG_NAME,
   SITE_TAGLINE,
+  SITE_VERSE,
   SATELLITE_INFO,
   SOCIAL_LINKS,
   APP_LINKS,
-  CONTACT_INFO,
   POLICY_LINKS,
+  GMI_LINKS,
+  MINISTRY_INFO,
 } from '@/lib/config/site';
 
 function FooterLink({
@@ -21,9 +24,9 @@ function FooterLink({
       href={href}
       className={[
         'inline-block py-1',
-        'text-white/70 hover:text-white',
+        'text-text-secondary hover:text-white',
         'transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
       ].join(' ')}
     >
       {children}
@@ -48,10 +51,10 @@ function SocialLink({
       className={[
         'inline-flex items-center justify-center',
         'min-h-11 min-w-11 p-2',
-        'rounded-lg',
-        'text-white/70 hover:text-white hover:bg-white/10',
-        'transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
+        'rounded-full',
+        'text-text-secondary hover:text-white hover:bg-tv-hover',
+        'transition-all duration-200',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
       ].join(' ')}
       aria-label={label}
     >
@@ -79,12 +82,13 @@ function AppStoreLink({
       rel="noopener noreferrer"
       className={[
         'inline-flex items-center gap-2 px-4 py-2',
-        'bg-white/10 hover:bg-white/20',
-        'rounded-lg',
+        'bg-tv-elevated hover:bg-tv-hover',
+        'border border-tv-border hover:border-brand-600/30',
+        'rounded-xl',
         'text-sm text-white',
-        'transition-colors',
+        'transition-all duration-200',
         'min-h-11',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
       ].join(' ')}
       aria-label={labels[store]}
     >
@@ -135,82 +139,34 @@ function TwitterIcon() {
   );
 }
 
+function BroadcastIcon() {
+  return (
+    <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8.288 15.038a5.25 5.25 0 017.424 0M5.106 11.856c3.807-3.808 9.98-3.808 13.788 0M1.924 8.674c5.565-5.565 14.587-5.565 20.152 0M12.53 18.22l-.53.53-.53-.53a.75.75 0 011.06 0z" />
+    </svg>
+  );
+}
+
 export function Footer() {
   const currentYear = new Date().getFullYear();
 
-  // Verificar si hay datos de contacto disponibles
-  const hasContactInfo = CONTACT_INFO.email || CONTACT_INFO.phone || CONTACT_INFO.address;
-
   // Verificar si hay redes sociales disponibles
-  const hasSocialLinks = SOCIAL_LINKS.facebook || SOCIAL_LINKS.instagram || SOCIAL_LINKS.youtube || SOCIAL_LINKS.twitter;
+  const hasSocialLinks = SOCIAL_LINKS.facebook || SOCIAL_LINKS.instagram || SOCIAL_LINKS.youtube;
 
   return (
-    <footer className="bg-brand-700 text-white">
+    <footer className="bg-tv-card border-t border-tv-border text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Columna institucional */}
           <div>
             <h2 className="font-bold text-lg mb-4">{SITE_NAME}</h2>
-            <p className="text-white/70 text-sm mb-4">{SITE_TAGLINE}</p>
-            <p className="text-white/70 text-sm">
+            <p className="text-text-secondary text-sm mb-4">{SITE_TAGLINE}</p>
+            <p className="text-text-muted text-sm mb-4">
               {SATELLITE_INFO.provider} · Canal {SATELLITE_INFO.channel}
             </p>
-          </div>
-
-          {/* Columna de contacto - solo si hay datos */}
-          {hasContactInfo && (
-            <div>
-              <h3 className="font-semibold mb-4">Contato</h3>
-              <ul className="space-y-2 text-sm">
-                {CONTACT_INFO.email && (
-                  <li>
-                    <a
-                      href={`mailto:${CONTACT_INFO.email}`}
-                      className="text-white/70 hover:text-white transition-colors"
-                    >
-                      {CONTACT_INFO.email}
-                    </a>
-                  </li>
-                )}
-                {CONTACT_INFO.phone && (
-                  <li className="text-white/70">{CONTACT_INFO.phone}</li>
-                )}
-                {CONTACT_INFO.address && (
-                  <li className="text-white/70">{CONTACT_INFO.address}</li>
-                )}
-              </ul>
-            </div>
-          )}
-
-          {/* Columna de políticas */}
-          <div>
-            <h3 className="font-semibold mb-4">Legal</h3>
-            <ul className="space-y-2 text-sm">
-              {POLICY_LINKS.map((link) => (
-                <li key={link.href}>
-                  <FooterLink href={link.href}>{link.label}</FooterLink>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Columna de apps */}
-          <div>
-            <h3 className="font-semibold mb-4">Baixe o App</h3>
-            <div className="flex flex-col gap-3">
-              <AppStoreLink href={APP_LINKS.android} store="android" />
-              <AppStoreLink href={APP_LINKS.ios} store="ios" />
-            </div>
-          </div>
-        </div>
-
-        {/* Redes sociales y copyright */}
-        <div className="mt-12 pt-8 border-t border-white/20">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            {/* Redes sociales - solo si hay enlaces */}
+            {/* Redes sociales */}
             {hasSocialLinks && (
               <div className="flex items-center gap-2">
-                <span className="sr-only">Redes sociais</span>
                 {SOCIAL_LINKS.facebook && (
                   <SocialLink href={SOCIAL_LINKS.facebook} label="Facebook da REDE ADVIR">
                     <FacebookIcon />
@@ -226,17 +182,81 @@ export function Footer() {
                     <YouTubeIcon />
                   </SocialLink>
                 )}
-                {SOCIAL_LINKS.twitter && (
-                  <SocialLink href={SOCIAL_LINKS.twitter} label="Twitter da REDE ADVIR">
-                    <TwitterIcon />
-                  </SocialLink>
-                )}
               </div>
             )}
+          </div>
+
+          {/* Columna de Red GMI */}
+          <div>
+            <h3 className="font-semibold mb-4">Rede GMI no Mundo</h3>
+            <ul className="space-y-2 text-sm">
+              {GMI_LINKS.map((link) => (
+                <li key={link.url}>
+                  <a
+                    href={link.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-text-secondary hover:text-white transition-colors"
+                  >
+                    <BroadcastIcon />
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna de políticas y enlaces */}
+          <div>
+            <h3 className="font-semibold mb-4">Links</h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <FooterLink href="/sobre">Sobre Nós</FooterLink>
+              </li>
+              <li>
+                <FooterLink href="/doar">Doar</FooterLink>
+              </li>
+              {POLICY_LINKS.map((link) => (
+                <li key={link.href}>
+                  <FooterLink href={link.href}>{link.label}</FooterLink>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Columna de apps */}
+          <div>
+            <h3 className="font-semibold mb-4">Baixe o App</h3>
+            <div className="flex flex-col gap-3">
+              <AppStoreLink href={APP_LINKS.android} store="android" />
+              <AppStoreLink href={APP_LINKS.ios} store="ios" />
+            </div>
+
+            {/* Aliado GMI */}
+            <div className="mt-6">
+              <a
+                href={MINISTRY_INFO.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-text-muted hover:text-white transition-colors text-sm"
+              >
+                Aliado: {MINISTRY_INFO.name}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* Versículo y copyright */}
+        <div className="mt-12 pt-8 border-t border-tv-border">
+          <div className="flex flex-col items-center gap-4 text-center">
+            {/* Versículo */}
+            <p className="text-brand-400 text-sm italic max-w-2xl">
+              {SITE_VERSE}
+            </p>
 
             {/* Copyright */}
-            <p className={`text-white/70 text-sm text-center ${!hasSocialLinks ? 'w-full' : ''}`}>
-              © {currentYear} {SITE_NAME}. Todos os direitos reservados.
+            <p className="text-text-muted text-sm">
+              © 2002–{currentYear} {SITE_LONG_NAME}. Avançando com voluntários junto a {MINISTRY_INFO.name}.
             </p>
           </div>
         </div>

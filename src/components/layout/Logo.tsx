@@ -2,33 +2,25 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { SITE_NAME } from '@/lib/config/site';
 
-interface LogoProps {
-  /** Variante de color (inverse para fondos oscuros) */
-  variant?: 'default' | 'inverse';
-}
-
 /**
  * Logo del canal.
  */
-export function Logo({ variant = 'default' }: LogoProps) {
+export function Logo() {
   return (
     <Link
       href="/"
       className={[
         'min-h-11 flex items-center',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
       ].join(' ')}
     >
       <span className="sr-only">{SITE_NAME} - Ir para a página inicial</span>
       <Image
         src="/images/logo.png"
         alt=""
-        width={144}
-        height={110}
-        className={[
-          'h-14 w-auto',
-          variant === 'inverse' ? 'brightness-0 invert' : '',
-        ].join(' ')}
+        width={200}
+        height={200}
+        className="h-20 w-auto ml-2"
         priority
         aria-hidden="true"
       />

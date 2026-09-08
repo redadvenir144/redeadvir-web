@@ -60,41 +60,78 @@ export function LivePlayer({ fallbackContent, poster }: LivePlayerProps) {
 
   return (
     <div className="w-full">
-      {/* Container del player con aspect ratio 16:9 y max-height para no ocupar toda la pantalla */}
-      <div
-        className="relative w-full max-h-[80vh] bg-player-bg rounded-lg overflow-hidden"
-        style={{ aspectRatio: '16 / 9' }}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        onTouchStart={handleMouseMove}
-      >
-        {/* Video element */}
-        <video
-          ref={videoRef}
-          className={[
-            'absolute inset-0 w-full h-full object-contain',
-            state === 'live' || state === 'buffering' ? 'opacity-100' : 'opacity-0',
-          ].join(' ')}
-          poster={poster}
-          playsInline
-          autoPlay
-          muted={false}
-        />
+      {/* Container con glow effect */}
+      <div className="relative group">
+        {/* Glow effect behind player */}
+        <div className="absolute -inset-1 bg-gradient-to-r from-brand-600/20 via-brand-400/10 to-brand-600/20 rounded-2xl blur-xl opacity-50 group-hover:opacity-75 transition-opacity duration-500" />
 
-        {/* Live badge */}
-        {state === 'live' && (
-          <div className="absolute top-4 left-4 z-10">
-            <LiveBadge />
+        {/* Player container */}
+        <div className="relative overflow-hidden rounded-2xl bg-black shadow-2xl ring-1 ring-white/10">
+          {/* Video area */}
+          <div
+            className="relative"
+            style={{ aspectRatio: '16 / 9' }}
+            onMouseMove={handleMouseMove}
+            onMouseLeave={handleMouseLeave}
+            onTouchStart={handleMouseMove}
+          >
+            {/* Video element */}
+            <video
+              ref={videoRef}
+              className={[
+                'absolute inset-0 w-full h-full object-cover',
+                state === 'live' || state === 'buffering' ? 'opacity-100' : 'opacity-0',
+              ].join(' ')}
+              poster={poster}
+              playsInline
+              autoPlay
+              muted={false}
+            />
+
+            {/* Live badge - top left */}
+            {state === 'live' && (
+              <div className="absolute top-4 left-4 z-10">
+                <LiveBadge />
+              </div>
+            )}
+
+            {/* Overlay de estados */}
+            <PlayerOverlay state={state} onRetry={retry} />
+
+            {/* Controles */}
+            {(state === 'live' || state === 'buffering') && (
+              <PlayerControls videoRef={videoRef} isVisible={showControls} />
+            )}
           </div>
-        )}
 
-        {/* Overlay de estados */}
-        <PlayerOverlay state={state} onRetry={retry} />
+          {/* Bottom bar - modern style */}
+          <div className="flex items-center justify-between gap-3 bg-gradient-to-r from-brand-700 to-brand-600 px-4 py-3">
+            <div className="flex items-center gap-3">
+              {/* Live indicator */}
+              <span className="inline-flex items-center gap-2 text-sm font-bold tracking-wide text-white">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-live" />
+                </span>
+                AO VIVO
+              </span>
 
-        {/* Controles */}
-        {(state === 'live' || state === 'buffering') && (
-          <PlayerControls videoRef={videoRef} isVisible={showControls} />
-        )}
+              {/* Channel info */}
+              <span className="hidden sm:inline text-white/60 text-sm">
+                Vivensis · Canal 7777
+              </span>
+            </div>
+
+            {/* Right side - quality indicator */}
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-white/50">HD</span>
+              <div className="w-px h-4 bg-white/20" />
+              <span className="text-xs text-white/70">
+                Transmissão ao vivo
+              </span>
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Fallback content cuando hay error */}

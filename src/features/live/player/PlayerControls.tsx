@@ -145,10 +145,10 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
     <div
       className={[
         'absolute bottom-0 left-0 right-0',
-        'bg-gradient-to-t from-black/80 to-transparent',
-        'p-4 pt-12',
-        'transition-opacity duration-300 motion-reduce:transition-none',
-        isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none',
+        'bg-gradient-to-t from-black/90 via-black/50 to-transparent',
+        'p-4 pt-16',
+        'transition-all duration-300 motion-reduce:transition-none',
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none',
       ].join(' ')}
     >
       <div className="flex items-center justify-between gap-4">
@@ -159,10 +159,10 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
             type="button"
             onClick={togglePlay}
             className={[
-              'min-h-11 min-w-11 p-2',
-              'text-white hover:text-white/80',
-              'rounded-lg hover:bg-white/10',
-              'transition-colors',
+              'min-h-10 min-w-10 p-2',
+              'text-white',
+              'rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20',
+              'transition-all duration-200 hover:scale-105',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black',
             ].join(' ')}
             aria-label={isPlaying ? 'Pausar' : 'Reproduzir'}
@@ -184,10 +184,10 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
               type="button"
               onClick={toggleMute}
               className={[
-                'min-h-11 min-w-11 p-2',
-                'text-white hover:text-white/80',
-                'rounded-lg hover:bg-white/10',
-                'transition-colors',
+                'min-h-10 min-w-10 p-2',
+                'text-white',
+                'rounded-full hover:bg-white/10',
+                'transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black',
               ].join(' ')}
               aria-label={isMuted ? 'Ativar som' : 'Desativar som'}
@@ -214,7 +214,7 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
               step="0.1"
               value={isMuted ? 0 : volume}
               onChange={handleVolumeChange}
-              className="w-20 h-1 accent-white cursor-pointer"
+              className="w-20 h-1 accent-brand-400 cursor-pointer appearance-none bg-white/30 rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
               aria-label="Volume"
             />
           </div>
@@ -228,15 +228,15 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
               type="button"
               onClick={togglePiP}
               className={[
-                'min-h-11 min-w-11 p-2',
-                'text-white hover:text-white/80',
-                'rounded-lg hover:bg-white/10',
-                'transition-colors',
+                'min-h-10 min-w-10 p-2',
+                'text-white/70 hover:text-white',
+                'rounded-full hover:bg-white/10',
+                'transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black',
               ].join(' ')}
               aria-label={isPiP ? 'Sair do picture-in-picture' : 'Picture-in-picture'}
             >
-              <svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path d="M19 7h-8v6h8V7zm2-4H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H3V5h18v14z" />
               </svg>
             </button>
@@ -247,10 +247,10 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
             type="button"
             onClick={toggleFullscreen}
             className={[
-              'min-h-11 min-w-11 p-2',
-              'text-white hover:text-white/80',
-              'rounded-lg hover:bg-white/10',
-              'transition-colors',
+              'min-h-10 min-w-10 p-2',
+              'text-white',
+              'rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20',
+              'transition-all duration-200 hover:scale-105',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black',
             ].join(' ')}
             aria-label={isFullscreen ? 'Sair da tela cheia' : 'Tela cheia'}

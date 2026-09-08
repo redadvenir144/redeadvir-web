@@ -29,13 +29,13 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
           href={href}
           onClick={onClick}
           className={[
-            'inline-flex items-center gap-2 px-3 py-2 rounded-lg',
-            'min-h-11 min-w-11',
-            'font-semibold transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
+            'inline-flex items-center gap-2 px-4 py-2 rounded-full',
+            'min-h-11',
+            'font-semibold transition-all duration-200',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
             isActive
-              ? 'text-white border-b-2 border-white'
-              : 'text-white/80 hover:text-white',
+              ? 'text-white bg-white/10'
+              : 'text-white/70 hover:text-white hover:bg-white/5',
           ].join(' ')}
           aria-current={isActive ? 'page' : undefined}
         >
@@ -54,13 +54,13 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         href={href}
         onClick={onClick}
         className={[
-          'inline-flex items-center px-3 py-2 rounded-lg',
-          'min-h-11 min-w-11',
-          'font-medium transition-colors',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
+          'inline-flex items-center px-4 py-2 rounded-full',
+          'min-h-11',
+          'font-medium transition-all duration-200',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
           isActive
-            ? 'text-white border-b-2 border-white'
-            : 'text-white/80 hover:text-white',
+            ? 'text-white bg-white/10'
+            : 'text-white/70 hover:text-white hover:bg-white/5',
         ].join(' ')}
         aria-current={isActive ? 'page' : undefined}
       >

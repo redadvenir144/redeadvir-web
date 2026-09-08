@@ -114,14 +114,14 @@ export function MobileMenu({
         aria-label="Menu de navegação"
         className={[
           'fixed inset-x-0 top-0 z-50 md:hidden',
-          'bg-surface',
+          'bg-tv-card',
           'shadow-xl',
           'max-h-screen overflow-y-auto',
         ].join(' ')}
       >
         {/* Header del menú */}
-        <div className="flex items-center justify-between p-4 border-b border-surface-border">
-          <span className="font-bold text-lg text-brand-600">Menu</span>
+        <div className="flex items-center justify-between p-4 border-b border-tv-border">
+          <span className="font-bold text-lg text-white">Menu</span>
           <button
             type="button"
             onClick={onClose}
@@ -129,9 +129,9 @@ export function MobileMenu({
               'inline-flex items-center justify-center',
               'min-h-11 min-w-11 p-2',
               'rounded-lg',
-              'text-text-primary hover:bg-surface-muted',
+              'text-white hover:bg-tv-hover',
               'transition-colors',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
             ].join(' ')}
             aria-label="Fechar menu"
           >
@@ -168,10 +168,10 @@ export function MobileMenu({
                       'flex items-center gap-2 px-3 py-3 rounded-lg',
                       'min-h-11',
                       'font-medium transition-colors',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
                       isActive
-                        ? 'bg-brand-50 text-brand-700'
-                        : 'text-text-secondary hover:text-text-primary hover:bg-surface-muted',
+                        ? 'bg-brand-600/20 text-brand-400'
+                        : 'text-text-secondary hover:text-white hover:bg-tv-hover',
                       item.isLive && 'font-semibold',
                     ]
                       .filter(Boolean)
@@ -182,7 +182,7 @@ export function MobileMenu({
                       isChannelLive ? (
                         <LiveBadge size="sm" />
                       ) : (
-                        <span className="text-brand-600 font-bold">
+                        <span className="text-brand-400 font-bold">
                           {item.label}
                         </span>
                       )
@@ -194,6 +194,25 @@ export function MobileMenu({
               );
             })}
           </ul>
+
+          {/* Botón Doar */}
+          <div className="mt-4 pt-4 border-t border-tv-border">
+            <Link
+              href="/doar"
+              onClick={onClose}
+              className={[
+                'flex items-center justify-center gap-2 px-4 py-3 rounded-xl',
+                'bg-brand-600 hover:bg-brand-500 text-white font-semibold',
+                'transition-colors',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
+              ].join(' ')}
+            >
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+              </svg>
+              Doar
+            </Link>
+          </div>
         </nav>
       </div>
     </>
