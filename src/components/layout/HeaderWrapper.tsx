@@ -29,13 +29,13 @@ export function HeaderWrapper({ children }: HeaderWrapperProps) {
     <header
       className={[
         'sticky top-0 z-50',
-        'bg-surface/95 backdrop-blur-sm',
-        'border-b border-surface-border',
+        'bg-brand-700 text-white',
+        'shadow-md',
         'transition-all duration-200 motion-reduce:transition-none',
         isScrolled ? 'py-2' : 'py-4',
       ].join(' ')}
     >
-      <div className="container mx-auto px-4">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {children}
       </div>
     </header>

@@ -120,7 +120,7 @@ export default async function ProgramaPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <main className="container mx-auto px-4 py-6">
+      <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
         {/* Breadcrumb */}
         <nav className="mb-6" aria-label="Navegação">
           <ol className="flex items-center gap-2 text-sm text-text-muted">

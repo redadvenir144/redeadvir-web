@@ -63,9 +63,9 @@ export function ScheduleSlotItem({ slot }: ScheduleSlotItemProps) {
         <h3 className="text-base font-medium text-text-primary truncate">
           {slot.program.title}
         </h3>
-        <div className="flex items-center gap-2 mt-1">
+        <div className="flex items-center gap-2 mt-1 flex-wrap">
           <Badge variant="muted">{slot.program.category.name}</Badge>
-          <span className="text-xs text-text-muted">
+          <span className="text-xs text-text-muted whitespace-nowrap">
             {formatDuration(slot.program.durationMinutes)}
           </span>
         </div>

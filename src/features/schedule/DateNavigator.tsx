@@ -139,7 +139,7 @@ export function DateNavigator({ selectedDate }: DateNavigatorProps) {
       </div>
 
       {/* Fecha completa */}
-      <p className="text-center text-lg font-semibold text-text-primary capitalize">
+      <p className="text-center text-lg font-semibold text-text-primary capitalize break-words">
         {displayDate}
       </p>
     </nav>

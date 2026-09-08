@@ -2,7 +2,7 @@ import { LivePlayer, NowNextBar } from '@/features/live';
 
 export default function HomePage() {
   return (
-    <main className="max-w-screen-2xl mx-auto px-4 py-6">
+    <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
       {/* Layout: en desktop player 2/3 + sidebar 1/3, en móvil apilado */}
       <div className="flex flex-col lg:flex-row lg:gap-6">
         {/* Reproductor en vivo - 2/3 en desktop */}

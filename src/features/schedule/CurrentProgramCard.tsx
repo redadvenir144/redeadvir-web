@@ -43,7 +43,7 @@ export function CurrentProgramCard({ slot }: CurrentProgramCardProps) {
         </div>
       </div>
 
-      <h2 className="text-xl font-bold text-text-primary mb-2">
+      <h2 className="text-xl font-bold text-text-primary mb-2 break-words">
         {slot.program.title}
       </h2>
 

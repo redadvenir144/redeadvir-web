@@ -45,9 +45,9 @@ export function HeaderClient({ isChannelLive = false }: HeaderClientProps) {
               'inline-flex items-center justify-center',
               'min-h-11 min-w-11 p-2',
               'rounded-lg',
-              'text-text-primary hover:bg-surface-muted',
+              'text-white hover:bg-white/10',
               'transition-colors',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
             ].join(' ')}
             aria-expanded={isMobileMenuOpen}
             aria-controls={MOBILE_MENU_ID}

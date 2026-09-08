@@ -21,9 +21,9 @@ function FooterLink({
       href={href}
       className={[
         'inline-block py-1',
-        'text-text-muted hover:text-text-primary',
+        'text-white/70 hover:text-white',
         'transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-player-bg',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
       ].join(' ')}
     >
       {children}
@@ -49,9 +49,9 @@ function SocialLink({
         'inline-flex items-center justify-center',
         'min-h-11 min-w-11 p-2',
         'rounded-lg',
-        'text-text-muted hover:text-text-inverse hover:bg-white/10',
+        'text-white/70 hover:text-white hover:bg-white/10',
         'transition-colors',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-player-bg',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
       ].join(' ')}
       aria-label={label}
     >
@@ -81,10 +81,10 @@ function AppStoreLink({
         'inline-flex items-center gap-2 px-4 py-2',
         'bg-white/10 hover:bg-white/20',
         'rounded-lg',
-        'text-sm text-text-inverse',
+        'text-sm text-white',
         'transition-colors',
         'min-h-11',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-player-bg',
+        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
       ].join(' ')}
       aria-label={labels[store]}
     >
@@ -145,14 +145,14 @@ export function Footer() {
   const hasSocialLinks = SOCIAL_LINKS.facebook || SOCIAL_LINKS.instagram || SOCIAL_LINKS.youtube || SOCIAL_LINKS.twitter;
 
   return (
-    <footer className="bg-player-bg text-text-inverse">
-      <div className="container mx-auto px-4 py-12">
+    <footer className="bg-brand-700 text-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Columna institucional */}
           <div>
             <h2 className="font-bold text-lg mb-4">{SITE_NAME}</h2>
-            <p className="text-text-muted text-sm mb-4">{SITE_TAGLINE}</p>
-            <p className="text-text-muted text-sm">
+            <p className="text-white/70 text-sm mb-4">{SITE_TAGLINE}</p>
+            <p className="text-white/70 text-sm">
               {SATELLITE_INFO.provider} · Canal {SATELLITE_INFO.channel}
             </p>
           </div>
@@ -166,17 +166,17 @@ export function Footer() {
                   <li>
                     <a
                       href={`mailto:${CONTACT_INFO.email}`}
-                      className="text-text-muted hover:text-text-inverse transition-colors"
+                      className="text-white/70 hover:text-white transition-colors"
                     >
                       {CONTACT_INFO.email}
                     </a>
                   </li>
                 )}
                 {CONTACT_INFO.phone && (
-                  <li className="text-text-muted">{CONTACT_INFO.phone}</li>
+                  <li className="text-white/70">{CONTACT_INFO.phone}</li>
                 )}
                 {CONTACT_INFO.address && (
-                  <li className="text-text-muted">{CONTACT_INFO.address}</li>
+                  <li className="text-white/70">{CONTACT_INFO.address}</li>
                 )}
               </ul>
             </div>
@@ -205,7 +205,7 @@ export function Footer() {
         </div>
 
         {/* Redes sociales y copyright */}
-        <div className="mt-12 pt-8 border-t border-player-border">
+        <div className="mt-12 pt-8 border-t border-white/20">
           <div className="flex flex-col md:flex-row items-center justify-between gap-6">
             {/* Redes sociales - solo si hay enlaces */}
             {hasSocialLinks && (
@@ -235,7 +235,7 @@ export function Footer() {
             )}
 
             {/* Copyright */}
-            <p className={`text-text-muted text-sm text-center ${!hasSocialLinks ? 'w-full' : ''}`}>
+            <p className={`text-white/70 text-sm text-center ${!hasSocialLinks ? 'w-full' : ''}`}>
               © {currentYear} {SITE_NAME}. Todos os direitos reservados.
             </p>
           </div>

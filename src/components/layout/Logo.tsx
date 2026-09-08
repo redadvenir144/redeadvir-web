@@ -26,7 +26,7 @@ export function Logo({ variant = 'default' }: LogoProps) {
         width={144}
         height={110}
         className={[
-          'h-10 w-auto',
+          'h-14 w-auto',
           variant === 'inverse' ? 'brightness-0 invert' : '',
         ].join(' ')}
         priority

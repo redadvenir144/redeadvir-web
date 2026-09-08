@@ -29,7 +29,7 @@ export default async function ProgramasPage() {
   );
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
       <header className="mb-8">
         <h1 className="text-2xl font-bold text-text-primary mb-2">
           Programas

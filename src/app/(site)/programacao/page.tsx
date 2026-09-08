@@ -133,7 +133,7 @@ export default async function ProgramacaoPage({ searchParams }: PageProps) {
   const validDate = dateRegex.test(selectedDate) ? selectedDate : todayIso;
 
   return (
-    <main className="container mx-auto px-4 py-6">
+    <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
       <header className="mb-6">
         <h1 className="sr-only">Programação da Rede ADVIR</h1>
         <Suspense fallback={<Skeleton className="h-24 w-full" />}>

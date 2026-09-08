@@ -32,17 +32,17 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
             'inline-flex items-center gap-2 px-3 py-2 rounded-lg',
             'min-h-11 min-w-11',
             'font-semibold transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
             isActive
-              ? 'bg-brand-50 text-brand-700'
-              : 'text-text-primary hover:bg-surface-muted',
+              ? 'text-white border-b-2 border-white'
+              : 'text-white/80 hover:text-white',
           ].join(' ')}
           aria-current={isActive ? 'page' : undefined}
         >
           {isChannelLive ? (
             <LiveBadge size="sm" />
           ) : (
-            <span className="text-brand-600 font-bold">{label}</span>
+            <span className="font-bold">{label}</span>
           )}
         </Link>
       );
@@ -57,10 +57,10 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
           'inline-flex items-center px-3 py-2 rounded-lg',
           'min-h-11 min-w-11',
           'font-medium transition-colors',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand-700',
           isActive
-            ? 'bg-brand-50 text-brand-700'
-            : 'text-text-secondary hover:text-text-primary hover:bg-surface-muted',
+            ? 'text-white border-b-2 border-white'
+            : 'text-white/80 hover:text-white',
         ].join(' ')}
         aria-current={isActive ? 'page' : undefined}
       >
