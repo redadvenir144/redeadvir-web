@@ -1,5 +1,5 @@
 import type { ScheduleSlot, Program } from '@/types/content';
-import type { ScheduleRepository } from '@/lib/data/schedule.repository';
+import type { ScheduleRepository, BroadcastTime } from '@/lib/data/schedule.repository';
 import { dailySchedule } from '@/mocks/schedule';
 import { programs } from '@/mocks/programs';
 import {
@@ -71,5 +71,20 @@ export class MockScheduleAdapter implements ScheduleRepository {
     const { year, month, day } = getDatePartsInChannelTimezone(new Date(nowTimestamp));
     const slots = this.buildSlotsForDate(year, month, day, nowTimestamp);
     return findNextSlot(slots, nowTimestamp);
+  }
+
+  async getBroadcastTimesForProgram(programSlug: string): Promise<BroadcastTime[]> {
+    return dailySchedule
+      .filter((slot) => slot.programSlug === programSlug)
+      .map((slot) => ({
+        hour: slot.startHour,
+        minute: slot.startMinute,
+      }))
+      .sort((a, b) => a.hour * 60 + a.minute - (b.hour * 60 + b.minute));
+  }
+
+  async isProgramLiveNow(programSlug: string): Promise<boolean> {
+    const currentSlot = await this.getCurrentSlot();
+    return currentSlot?.program.slug === programSlug;
   }
 }
