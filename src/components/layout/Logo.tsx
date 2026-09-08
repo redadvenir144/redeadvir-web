@@ -20,7 +20,7 @@ export function Logo() {
         alt=""
         width={200}
         height={200}
-        className="h-20 w-auto ml-2"
+        className="h-20 w-auto ml-4"
         priority
         aria-hidden="true"
       />
