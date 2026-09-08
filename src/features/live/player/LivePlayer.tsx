@@ -60,9 +60,9 @@ export function LivePlayer({ fallbackContent, poster }: LivePlayerProps) {
 
   return (
     <div className="w-full">
-      {/* Container del player con aspect ratio 16:9 */}
+      {/* Container del player con aspect ratio 16:9 y max-height para no ocupar toda la pantalla */}
       <div
-        className="relative w-full bg-player-bg rounded-lg overflow-hidden"
+        className="relative w-full max-h-[70vh] bg-player-bg rounded-lg overflow-hidden"
         style={{ aspectRatio: '16 / 9' }}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
