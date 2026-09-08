@@ -140,16 +140,49 @@ export const GMI_CHANNELS = [
   },
 ] as const;
 
-/** Plataformas Smart TV donde está disponible */
-export const SMART_TV_PLATFORMS = [
+/** Plataformas donde está disponible REDE ADVIR */
+export type Platform = {
+  name: string;
+  description: string;
+  href: string;
+  icon: 'roku' | 'firetv' | 'androidtv' | 'appletv' | 'mobile' | 'web';
+  available: boolean;
+};
+
+export const PLATFORMS: Platform[] = [
   {
     name: 'Roku',
-    url: 'https://channelstore.roku.com/details/237107/red-advenir',
+    description: 'Disponível na Roku Channel Store',
+    href: 'https://channelstore.roku.com/details/237107/red-advenir',
+    icon: 'roku',
     available: true,
   },
   {
     name: 'Amazon Fire TV',
-    url: 'https://www.amazon.com/Gospel-Ministries-International-Red-Advenir/dp/B07GVQJPL5',
+    description: 'Instale pela Amazon Appstore',
+    href: 'https://www.amazon.com/Gospel-Ministries-International-Red-Advenir/dp/B07GVQJPL5',
+    icon: 'firetv',
     available: true,
   },
-] as const;
+  {
+    name: 'Android',
+    description: 'App oficial para seu celular',
+    href: APP_LINKS.android,
+    icon: 'mobile',
+    available: true,
+  },
+  {
+    name: 'iOS (iPhone/iPad)',
+    description: 'App oficial para dispositivos Apple',
+    href: APP_LINKS.ios,
+    icon: 'mobile',
+    available: true,
+  },
+  {
+    name: 'Web',
+    description: 'Assista aqui mesmo, sem instalar',
+    href: '/',
+    icon: 'web',
+    available: true,
+  },
+];

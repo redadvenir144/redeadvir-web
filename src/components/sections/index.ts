@@ -1,0 +1,1 @@
+export { SmartTVSection } from './SmartTVSection';

@@ -1,4 +1,5 @@
 import { LivePlayer, NowNextBar } from '@/features/live';
+import { SmartTVSection } from '@/components/sections';
 
 export default function HomePage() {
   return (
@@ -25,6 +26,9 @@ export default function HomePage() {
         </header>
         <NowNextBar />
       </section>
+
+      {/* Smart TV / Apps */}
+      <SmartTVSection />
     </main>
   );
 }
