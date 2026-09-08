@@ -14,6 +14,16 @@ export const SITE_LONG_NAME = 'Rede Advir Televisão';
 /** Lema del canal */
 export const SITE_TAGLINE = 'O canal da volta de Jesus';
 
+/** Descripción del sitio para SEO */
+export const SITE_DESCRIPTION =
+  'Rede de televisão adventista do sétimo dia, sem fins lucrativos. Transmitimos TV ao vivo com alcance internacional.';
+
+/** URL canónica del sitio */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://redeadvir.tv').replace(
+  /\/$/,
+  ''
+);
+
 /** Versículo bíblico del canal */
 export const SITE_VERSE = '"Porque ainda um pouco de tempo, e aquele que há de vir virá e não tardará" — Hebreus 10:37';
 
