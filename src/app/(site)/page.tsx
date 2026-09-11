@@ -17,10 +17,10 @@ export default function HomePage() {
       {/* Programación actual */}
       <section className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
         <header className="mb-6">
-          <h2 className="text-2xl font-bold text-white">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
             Programação
           </h2>
-          <p className="text-text-secondary mt-1">
+          <p className="text-gray-600 dark:text-text-secondary mt-1">
             O que está passando e o que vem a seguir
           </p>
         </header>

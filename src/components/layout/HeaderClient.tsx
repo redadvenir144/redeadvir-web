@@ -75,9 +75,9 @@ export function HeaderClient({ isChannelLive = false }: HeaderClientProps) {
                 'inline-flex items-center justify-center',
                 'min-h-11 min-w-11 p-2',
                 'rounded-full',
-                'text-white/70 hover:text-white hover:bg-white/10',
+                'text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10',
                 'transition-all duration-200',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
               ].join(' ')}
               aria-expanded={isMobileMenuOpen}
               aria-controls={MOBILE_MENU_ID}

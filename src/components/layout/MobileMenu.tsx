@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { NAV_ITEMS } from '@/lib/config/site';
 import { LiveBadge } from '@/components/ui';
+import { ThemeToggle } from '@/components/theme';
 
 interface MobileMenuProps {
   isOpen: boolean;
@@ -114,24 +115,26 @@ export function MobileMenu({
         aria-label="Menu de navegação"
         className={[
           'fixed inset-x-0 top-0 z-50 md:hidden',
-          'bg-tv-card',
+          'bg-white dark:bg-tv-card',
           'shadow-xl',
           'max-h-screen overflow-y-auto',
         ].join(' ')}
       >
         {/* Header del menú */}
-        <div className="flex items-center justify-between p-4 border-b border-tv-border">
-          <span className="font-bold text-lg text-white">Menu</span>
-          <button
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-tv-border">
+          <span className="font-bold text-lg text-gray-900 dark:text-white">Menu</span>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <button
             type="button"
             onClick={onClose}
             className={[
               'inline-flex items-center justify-center',
               'min-h-11 min-w-11 p-2',
               'rounded-lg',
-              'text-white hover:bg-tv-hover',
+              'text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-tv-hover',
               'transition-colors',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
             ].join(' ')}
             aria-label="Fechar menu"
           >
@@ -149,7 +152,8 @@ export function MobileMenu({
                 d="M6 18L18 6M6 6l12 12"
               />
             </svg>
-          </button>
+            </button>
+          </div>
         </div>
 
         {/* Navegación */}
@@ -168,10 +172,10 @@ export function MobileMenu({
                       'flex items-center gap-2 px-3 py-3 rounded-lg',
                       'min-h-11',
                       'font-medium transition-colors',
-                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
+                      'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
                       isActive
-                        ? 'bg-brand-600/20 text-brand-400'
-                        : 'text-text-secondary hover:text-white hover:bg-tv-hover',
+                        ? 'bg-brand-100 dark:bg-brand-600/20 text-brand-700 dark:text-brand-400'
+                        : 'text-gray-600 dark:text-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-tv-hover',
                       item.isLive && 'font-semibold',
                     ]
                       .filter(Boolean)
@@ -182,7 +186,7 @@ export function MobileMenu({
                       isChannelLive ? (
                         <LiveBadge size="sm" />
                       ) : (
-                        <span className="text-brand-400 font-bold">
+                        <span className="text-brand-600 dark:text-brand-400 font-bold">
                           {item.label}
                         </span>
                       )
@@ -196,7 +200,7 @@ export function MobileMenu({
           </ul>
 
           {/* Botón Doar */}
-          <div className="mt-4 pt-4 border-t border-tv-border">
+          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-tv-border">
             <Link
               href="/doar"
               onClick={onClose}
@@ -204,7 +208,7 @@ export function MobileMenu({
                 'flex items-center justify-center gap-2 px-4 py-3 rounded-xl',
                 'bg-brand-600 hover:bg-brand-500 text-white font-semibold',
                 'transition-colors',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-card',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
               ].join(' ')}
             >
               <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24">

@@ -32,10 +32,10 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
             'inline-flex items-center gap-2 px-4 py-2 rounded-full',
             'min-h-11',
             'font-semibold transition-all duration-200',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
+            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
             isActive
-              ? 'text-white bg-white/10'
-              : 'text-white/70 hover:text-white hover:bg-white/5',
+              ? 'text-brand-700 dark:text-white bg-brand-100 dark:bg-white/10'
+              : 'text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5',
           ].join(' ')}
           aria-current={isActive ? 'page' : undefined}
         >
@@ -57,10 +57,10 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
           'inline-flex items-center px-4 py-2 rounded-full',
           'min-h-11',
           'font-medium transition-all duration-200',
-          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
+          'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
           isActive
-            ? 'text-white bg-white/10'
-            : 'text-white/70 hover:text-white hover:bg-white/5',
+            ? 'text-brand-700 dark:text-white bg-brand-100 dark:bg-white/10'
+            : 'text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5',
         ].join(' ')}
         aria-current={isActive ? 'page' : undefined}
       >
