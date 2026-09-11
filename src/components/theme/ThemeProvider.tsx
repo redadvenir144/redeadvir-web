@@ -14,8 +14,13 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function useTheme() {
   const context = useContext(ThemeContext);
+  // Durante SSR/prerendering, devolver valores por defecto en lugar de error
   if (!context) {
-    throw new Error('useTheme must be used within a ThemeProvider');
+    return {
+      theme: 'dark' as const,
+      resolvedTheme: 'dark' as const,
+      setTheme: () => {},
+    };
   }
   return context;
 }
