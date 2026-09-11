@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
+import { ThemeProvider } from '@/components/theme';
 import {
   SITE_NAME,
   SITE_LONG_NAME,
@@ -57,8 +58,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR" data-scroll-behavior="smooth">
-      <body className={`${inter.variable} antialiased`}>{children}</body>
+    <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
+      <body className={`${inter.variable} antialiased`}>
+        <ThemeProvider defaultTheme="dark">
+          {children}
+        </ThemeProvider>
+      </body>
     </html>
   );
 }

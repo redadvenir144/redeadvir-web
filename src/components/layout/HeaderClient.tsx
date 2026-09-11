@@ -6,6 +6,7 @@ import { Logo } from './Logo';
 import { DesktopNav } from './DesktopNav';
 import { MobileMenu } from './MobileMenu';
 import { HeaderWrapper } from './HeaderWrapper';
+import { ThemeToggle } from '@/components/theme';
 
 function HeartIcon() {
   return (
@@ -54,12 +55,15 @@ export function HeaderClient({ isChannelLive = false }: HeaderClientProps) {
                 'px-4 py-2 rounded-full',
                 'bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm',
                 'transition-colors duration-200',
-                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2 focus-visible:ring-offset-tv-bg',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-400 focus-visible:ring-offset-2',
               ].join(' ')}
             >
               <HeartIcon />
               Doar
             </Link>
+
+            {/* Theme Toggle */}
+            <ThemeToggle className="hidden md:flex" />
 
             {/* Mobile menu button */}
             <button

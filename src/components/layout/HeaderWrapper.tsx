@@ -29,11 +29,11 @@ export function HeaderWrapper({ children }: HeaderWrapperProps) {
     <header
       className={[
         'sticky top-0 z-50',
-        'text-white',
+        'text-gray-900 dark:text-white',
         'transition-all duration-300 motion-reduce:transition-none',
         isScrolled
-          ? 'py-3 bg-tv-bg/95 backdrop-blur-md border-b border-tv-border'
-          : 'py-4 bg-gradient-to-b from-tv-bg/80 to-transparent',
+          ? 'py-3 bg-white/95 dark:bg-tv-bg/95 backdrop-blur-md border-b border-gray-200 dark:border-tv-border'
+          : 'py-4 bg-gradient-to-b from-white/80 dark:from-tv-bg/80 to-transparent',
       ].join(' ')}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

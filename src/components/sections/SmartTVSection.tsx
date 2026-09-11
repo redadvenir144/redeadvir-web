@@ -49,15 +49,15 @@ function PlatformCard({ platform }: { platform: Platform }) {
 
   if (!platform.available) {
     return (
-      <div className="flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 opacity-60">
-        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-white/10 text-white/60">
+      <div className="flex flex-col gap-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-white/5 p-6 opacity-60">
+        <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gray-200 dark:bg-white/10 text-gray-400 dark:text-white/60">
           <PlatformIcon icon={platform.icon} />
         </div>
         <div className="flex-1">
-          <h3 className="font-semibold text-white">{platform.name}</h3>
-          <p className="mt-1 text-sm text-white/60">{platform.description}</p>
+          <h3 className="font-semibold text-gray-900 dark:text-white">{platform.name}</h3>
+          <p className="mt-1 text-sm text-gray-500 dark:text-white/60">{platform.description}</p>
         </div>
-        <span className="inline-flex w-fit items-center rounded-full bg-white/10 px-3 py-1.5 text-xs font-medium text-white/50">
+        <span className="inline-flex w-fit items-center rounded-full bg-gray-200 dark:bg-white/10 px-3 py-1.5 text-xs font-medium text-gray-500 dark:text-white/50">
           Em breve
         </span>
       </div>
@@ -68,16 +68,16 @@ function PlatformCard({ platform }: { platform: Platform }) {
     <a
       href={platform.href}
       {...(isInternal ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
-      className="group flex flex-col gap-4 rounded-2xl border border-white/10 bg-white/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-400/50 hover:bg-white/10 hover:shadow-lg hover:shadow-brand-500/10"
+      className="group flex flex-col gap-4 rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-white/5 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-brand-400 dark:hover:border-brand-400/50 hover:bg-gray-50 dark:hover:bg-white/10 hover:shadow-lg dark:hover:shadow-brand-500/10"
     >
-      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-500/20 to-brand-600/20 text-brand-400 transition-colors group-hover:from-brand-500/30 group-hover:to-brand-600/30 group-hover:text-brand-300">
+      <div className="flex h-14 w-14 items-center justify-center rounded-xl bg-gradient-to-br from-brand-100 to-brand-200 dark:from-brand-500/20 dark:to-brand-600/20 text-brand-600 dark:text-brand-400 transition-colors group-hover:from-brand-200 group-hover:to-brand-300 dark:group-hover:from-brand-500/30 dark:group-hover:to-brand-600/30 group-hover:text-brand-700 dark:group-hover:text-brand-300">
         <PlatformIcon icon={platform.icon} />
       </div>
       <div className="flex-1">
-        <h3 className="font-semibold text-white">{platform.name}</h3>
-        <p className="mt-1 text-sm text-white/70">{platform.description}</p>
+        <h3 className="font-semibold text-gray-900 dark:text-white">{platform.name}</h3>
+        <p className="mt-1 text-sm text-gray-600 dark:text-white/70">{platform.description}</p>
       </div>
-      <span className="inline-flex items-center gap-1 text-sm font-medium text-brand-400 transition-colors group-hover:text-brand-300">
+      <span className="inline-flex items-center gap-1 text-sm font-medium text-brand-600 dark:text-brand-400 transition-colors group-hover:text-brand-700 dark:group-hover:text-brand-300">
         {ctaLabel(platform)}
         <svg className="h-4 w-4 transition-transform group-hover:translate-x-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -89,20 +89,20 @@ function PlatformCard({ platform }: { platform: Platform }) {
 
 export function SmartTVSection() {
   return (
-    <section className="relative overflow-hidden border-t border-white/10 bg-gradient-to-b from-tv-bg to-tv-card">
+    <section className="relative overflow-hidden border-t border-gray-200 dark:border-white/10 bg-gradient-to-b from-gray-50 to-white dark:from-tv-bg dark:to-tv-card">
       {/* Decorative background */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-600/10 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-brand-100/50 dark:from-brand-600/10 via-transparent to-transparent" />
 
       <div className="relative mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-24">
         {/* Header */}
         <div className="mb-12 max-w-2xl">
-          <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-400">
+          <p className="text-xs font-bold uppercase tracking-[0.25em] text-brand-600 dark:text-brand-400">
             Disponível na sua tela grande
           </p>
-          <h2 className="mt-3 text-3xl font-bold text-white sm:text-4xl">
+          <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white sm:text-4xl">
             Leve a Rede Advir para sua Smart TV
           </h2>
-          <p className="mt-4 text-lg text-white/70">
+          <p className="mt-4 text-lg text-gray-600 dark:text-white/70">
             Instale nosso app gratuito e aproveite a transmissão em HD na sua tela favorita.
             Disponível para as principais plataformas.
           </p>
@@ -116,21 +116,21 @@ export function SmartTVSection() {
         </div>
 
         {/* Additional info */}
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-center text-sm text-white/50">
+        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-center text-sm text-gray-500 dark:text-white/50">
           <div className="flex items-center gap-2">
-            <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-5 w-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             <span>100% Gratuito</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-5 w-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             <span>Transmissão 24 horas</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="h-5 w-5 text-green-500 dark:text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
             </svg>
             <span>Qualidade HD</span>
