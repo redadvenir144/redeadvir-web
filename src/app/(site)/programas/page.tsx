@@ -1,17 +1,18 @@
 import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/layout';
+import { socialMetadata } from '@/lib/seo';
 import { programsRepository, scheduleRepository } from '@/lib/data';
 import { ProgramCard } from '@/features/programs';
 
 export const metadata: Metadata = {
-  title: 'Programas | REDE ADVIR',
+  title: 'Programas',
   description:
     'Conheça os programas da REDE ADVIR: devocional, estudos bíblicos, música, documentários e muito mais. Confira os horários de exibição.',
-  openGraph: {
-    title: 'Programas | REDE ADVIR',
+  ...socialMetadata({
+    title: 'Programas',
     description:
-      'Conheça os programas da REDE ADVIR: devocional, estudos bíblicos, música, documentários e muito mais.',
-    type: 'website',
-  },
+      'Conheça os programas da REDE ADVIR: devocional, estudos bíblicos, música, documentários e muito mais. Confira os horários de exibição.',
+  }),
 };
 
 export default async function ProgramasPage() {
@@ -30,11 +31,13 @@ export default async function ProgramasPage() {
 
   return (
     <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+      <Breadcrumbs items={[{ label: 'Programas' }]} />
+
       <header className="mb-8">
-        <h1 className="text-2xl font-bold text-text-primary mb-2">
+        <h1 className="text-2xl font-bold text-gray-900 dark:text-text-primary mb-2">
           Programas
         </h1>
-        <p className="text-text-secondary">
+        <p className="text-gray-600 dark:text-text-secondary">
           Conheça a programação da REDE ADVIR
         </p>
       </header>

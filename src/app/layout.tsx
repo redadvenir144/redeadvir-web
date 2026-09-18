@@ -4,6 +4,12 @@ import './globals.css';
 
 import { ThemeProvider } from '@/components/theme';
 import {
+  JsonLd,
+  graph,
+  organizationJsonLd,
+  televisionStationJsonLd,
+} from '@/lib/seo';
+import {
   SITE_NAME,
   SITE_LONG_NAME,
   SITE_DESCRIPTION,
@@ -32,11 +38,20 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: 'website',
     locale: 'pt_BR',
+    images: [
+      {
+        url: '/images/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: `${SITE_LONG_NAME} — ${SITE_NAME}`,
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
     title: SITE_LONG_NAME,
     description: SITE_DESCRIPTION,
+    images: ['/images/og-image.jpg'],
   },
   // Iconos por convención de archivos: app/favicon.ico, app/icon.png, app/apple-icon.png
   // TODO: Remover robots al lanzar en el dominio final
@@ -60,6 +75,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className={`${inter.variable} antialiased`}>
+        <JsonLd
+          data={graph(organizationJsonLd(), televisionStationJsonLd())}
+        />
         <ThemeProvider defaultTheme="dark">
           {children}
         </ThemeProvider>

@@ -48,7 +48,7 @@ export function ProgressBar({ startTime, endTime }: ProgressBarProps) {
 
   return (
     <div
-      className="h-1.5 bg-surface-muted rounded-full overflow-hidden"
+      className="h-1.5 bg-gray-100 dark:bg-surface-muted rounded-full overflow-hidden"
       role="progressbar"
       aria-valuenow={progress}
       aria-valuemin={0}

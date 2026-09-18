@@ -1,19 +1,20 @@
 import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/layout';
+import { socialMetadata } from '@/lib/seo';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from '@/components/ui';
 import { SITE_NAME, SITE_TAGLINE, SATELLITE_INFO, APP_LINKS, MINISTRY_INFO, GMI_CHANNELS } from '@/lib/config/site';
 
 export const metadata: Metadata = {
-  title: `Sobre | ${SITE_NAME}`,
+  title: 'Sobre',
   description:
     'Conheça a REDE ADVIR, o canal da volta de Jesus. Nossa missão é levar esperança e a mensagem do evangelho a todos os lares.',
-  openGraph: {
-    title: `Sobre | ${SITE_NAME}`,
+  ...socialMetadata({
+    title: 'Sobre',
     description:
-      'Conheça a REDE ADVIR, o canal da volta de Jesus. Nossa missão é levar esperança.',
-    type: 'website',
-  },
+      'Conheça a REDE ADVIR, o canal da volta de Jesus. Nossa missão é levar esperança e a mensagem do evangelho a todos os lares.',
+  }),
 };
 
 function SatelliteIcon() {
@@ -48,24 +49,40 @@ function HeartIcon() {
   );
 }
 
+/** Idiomas distintos en los que emite la red, sin repetir. */
+const GMI_LANGUAGES = Array.from(
+  new Set(GMI_CHANNELS.flatMap((channel) => channel.language.split(' / '))),
+).sort((a, b) => a.localeCompare(b, 'pt-BR'));
+
 export default function SobrePage() {
   return (
     <main className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+      <Breadcrumbs items={[{ label: 'Sobre' }]} />
+
       {/* Hero */}
       <header className="text-center mb-16">
         <div className="mb-6">
           <Image
+            src="/images/logo-azul.png"
+            alt=""
+            width={512}
+            height={512}
+            className="h-32 w-auto mx-auto dark:hidden"
+            aria-hidden="true"
+          />
+          <Image
             src="/images/logo.png"
-            alt={SITE_NAME}
-            width={200}
-            height={200}
-            className="h-32 w-auto mx-auto"
+            alt=""
+            width={512}
+            height={512}
+            className="h-32 w-auto mx-auto hidden dark:block"
+            aria-hidden="true"
           />
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
           {SITE_NAME}
         </h1>
-        <p className="text-xl text-brand-400 font-medium">
+        <p className="text-xl text-brand-700 dark:text-brand-400 font-medium">
           {SITE_TAGLINE}
         </p>
       </header>
@@ -73,8 +90,8 @@ export default function SobrePage() {
       {/* Misión */}
       <section className="mb-16">
         <Card padding="lg" className="text-center">
-          <h2 className="text-2xl font-bold text-white mb-4">Nossa Missão</h2>
-          <p className="text-lg text-text-secondary max-w-3xl mx-auto leading-relaxed">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Nossa Missão</h2>
+          <p className="text-lg text-gray-600 dark:text-text-secondary max-w-3xl mx-auto leading-relaxed">
             A REDE ADVIR é um canal de televisão cristão dedicado a proclamar a mensagem
             de esperança do breve retorno de Jesus Cristo. Nossa missão é alcançar cada lar
             com programação edificante, estudos bíblicos profundos e conteúdo que
@@ -88,14 +105,14 @@ export default function SobrePage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* História */}
           <Card padding="lg">
-            <h2 className="text-2xl font-bold text-white mb-4">Nossa História</h2>
-            <p className="text-text-secondary leading-relaxed mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Nossa História</h2>
+            <p className="text-gray-600 dark:text-text-secondary leading-relaxed mb-4">
               A Rede Advir Televisão é uma rede de televisão cristã, sem fins lucrativos,
               fundada em {MINISTRY_INFO.foundedYear} pelo {MINISTRY_INFO.founder}. Atualmente
               transmitimos televisão por meio de sinal aberto, cabo, satélite, streaming
               e redes sociais, alcançando uma audiência global.
             </p>
-            <p className="text-text-secondary leading-relaxed">
+            <p className="text-gray-600 dark:text-text-secondary leading-relaxed">
               Fazemos parte da {MINISTRY_INFO.name}, avançando com o esforço de voluntários
               comprometidos em compartilhar o evangelho e a esperança do breve retorno de Cristo.
             </p>
@@ -103,7 +120,7 @@ export default function SobrePage() {
               href={MINISTRY_INFO.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-brand-400 hover:text-brand-300 mt-4 transition-colors"
+              className="inline-flex items-center gap-2 min-h-11 mt-2 text-brand-700 dark:text-brand-400 hover:text-brand-800 dark:hover:text-brand-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
             >
               Conhecer a GMI
               <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -114,38 +131,45 @@ export default function SobrePage() {
 
           {/* Rede GMI */}
           <Card padding="lg">
-            <h2 className="text-2xl font-bold text-white mb-4">Rede GMI no Mundo</h2>
-            <p className="text-text-secondary leading-relaxed mb-4">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Rede GMI no Mundo</h2>
+            <p className="text-gray-600 dark:text-text-secondary leading-relaxed mb-4">
               Somos parte de uma rede global de canais de TV cristãos que transmitem
               a mensagem do evangelho em diversos idiomas ao redor do mundo.
             </p>
-            <ul className="space-y-3">
-              {GMI_CHANNELS.map((channel) => (
-                <li key={channel.name}>
-                  <a
-                    href={channel.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-3 bg-tv-elevated rounded-lg hover:bg-tv-hover transition-colors"
-                  >
-                    <div>
-                      <p className="text-white font-medium">{channel.name}</p>
-                      <p className="text-text-muted text-sm">{channel.region} · {channel.language}</p>
-                    </div>
-                    <svg className="h-5 w-5 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
-                    </svg>
-                  </a>
+            {/* La lista completa vive en /canais; repetirla aquí obligaba a
+                mantener dos copias y dejaba enlaces vacíos en los proyectos
+                que todavía no tienen web propia. */}
+            <ul className="flex flex-wrap gap-2 mb-5">
+              {GMI_LANGUAGES.map((language) => (
+                <li
+                  key={language}
+                  className="px-3 py-1 rounded-full text-sm bg-gray-100 text-gray-700 dark:bg-tv-elevated dark:text-text-secondary"
+                >
+                  {language}
                 </li>
               ))}
             </ul>
+
+            <Link
+              href="/canais"
+              className={[
+                'inline-flex items-center gap-1 min-h-11',
+                'font-semibold text-brand-700 dark:text-brand-400 hover:underline',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2 rounded',
+              ].join(' ')}
+            >
+              Ver os {GMI_CHANNELS.length} canais da rede
+              <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </Link>
           </Card>
         </div>
       </section>
 
       {/* Como Assistir */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-white mb-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Como Assistir
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -154,15 +178,15 @@ export default function SobrePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-600/20 text-brand-400 mb-4">
               <SatelliteIcon />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Via Satélite</h3>
-            <p className="text-text-secondary mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Via Satélite</h3>
+            <p className="text-gray-600 dark:text-text-secondary mb-4">
               Assista pelo satélite em todo o Brasil
             </p>
-            <div className="bg-tv-elevated rounded-lg p-4">
-              <p className="text-sm text-text-muted">Operadora</p>
-              <p className="text-lg font-bold text-white">{SATELLITE_INFO.provider}</p>
-              <p className="text-sm text-text-muted mt-2">Canal</p>
-              <p className="text-2xl font-bold text-brand-400">{SATELLITE_INFO.channel}</p>
+            <div className="bg-gray-100 dark:bg-tv-elevated rounded-lg p-4">
+              <p className="text-sm text-gray-600 dark:text-text-muted">Operadora</p>
+              <p className="text-lg font-bold text-gray-900 dark:text-white">{SATELLITE_INFO.provider}</p>
+              <p className="text-sm text-gray-600 dark:text-text-muted mt-2">Canal</p>
+              <p className="text-2xl font-bold text-brand-700 dark:text-brand-400">{SATELLITE_INFO.channel}</p>
             </div>
           </Card>
 
@@ -171,8 +195,8 @@ export default function SobrePage() {
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-brand-600/20 text-brand-400 mb-4">
               <GlobeIcon />
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Pela Internet</h3>
-            <p className="text-text-secondary mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Pela Internet</h3>
+            <p className="text-gray-600 dark:text-text-secondary mb-4">
               Assista ao vivo de qualquer lugar do mundo
             </p>
             <Link
@@ -195,8 +219,8 @@ export default function SobrePage() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
               </svg>
             </div>
-            <h3 className="text-lg font-semibold text-white mb-2">Pelo Celular</h3>
-            <p className="text-text-secondary mb-4">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Pelo Celular</h3>
+            <p className="text-gray-600 dark:text-text-secondary mb-4">
               Baixe nosso app gratuito
             </p>
             <div className="flex flex-col gap-2">
@@ -206,7 +230,7 @@ export default function SobrePage() {
                 rel="noopener noreferrer"
                 className={[
                   'inline-flex items-center justify-center gap-2',
-                  'px-4 py-3 bg-tv-elevated hover:bg-tv-hover border border-tv-border text-white rounded-xl',
+                  'px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-tv-elevated dark:hover:bg-tv-hover dark:text-white border border-paper-border dark:border-tv-border rounded-xl',
                   'transition-colors text-sm',
                 ].join(' ')}
               >
@@ -221,7 +245,7 @@ export default function SobrePage() {
                 rel="noopener noreferrer"
                 className={[
                   'inline-flex items-center justify-center gap-2',
-                  'px-4 py-3 bg-tv-elevated hover:bg-tv-hover border border-tv-border text-white rounded-xl',
+                  'px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-900 dark:bg-tv-elevated dark:hover:bg-tv-hover dark:text-white border border-paper-border dark:border-tv-border rounded-xl',
                   'transition-colors text-sm',
                 ].join(' ')}
               >
@@ -237,7 +261,7 @@ export default function SobrePage() {
 
       {/* Valores */}
       <section className="mb-16">
-        <h2 className="text-2xl font-bold text-white mb-8 text-center">
+        <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-8 text-center">
           Nossos Valores
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -279,8 +303,8 @@ export default function SobrePage() {
               <div className="inline-flex items-center justify-center w-14 h-14 rounded-full bg-brand-600/20 text-brand-400 mb-4">
                 {value.icon}
               </div>
-              <h3 className="text-lg font-semibold text-white mb-2">{value.title}</h3>
-              <p className="text-text-secondary text-sm">{value.description}</p>
+              <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">{value.title}</h3>
+              <p className="text-gray-600 dark:text-text-secondary text-sm">{value.description}</p>
             </Card>
           ))}
         </div>

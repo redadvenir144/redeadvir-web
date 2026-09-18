@@ -55,7 +55,7 @@ export function ProgramImage({
       role="img"
       aria-label={`Imagem do programa ${title}`}
     >
-      <span className="font-bold text-white/90 tracking-wider">
+      <span className="font-bold text-white tracking-wider">
         {initials}
       </span>
     </div>

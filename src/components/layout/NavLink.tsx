@@ -22,6 +22,10 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
     const pathname = usePathname();
     const isActive = pathname === href;
 
+    // AO VIVO comparte destino con Início, pero no es una página: es la
+    // llamada a ver el directo. Por eso nunca lleva el estado de "página
+    // actual" — si lo llevara, en la portada saldrían dos elementos marcados
+    // a la vez y el usuario no sabría en cuál está.
     if (isLive) {
       return (
         <Link
@@ -29,20 +33,18 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
           href={href}
           onClick={onClick}
           className={[
-            'inline-flex items-center gap-2 px-4 py-2 rounded-full',
+            'inline-flex items-center gap-2 px-3 xl:px-4 py-2 rounded-full whitespace-nowrap',
             'min-h-11',
-            'font-semibold transition-all duration-200',
+            'font-semibold transition-opacity duration-200 hover:opacity-80',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
-            isActive
-              ? 'text-brand-700 dark:text-white bg-brand-100 dark:bg-white/10'
-              : 'text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5',
           ].join(' ')}
-          aria-current={isActive ? 'page' : undefined}
         >
           {isChannelLive ? (
             <LiveBadge size="sm" />
           ) : (
-            <span className="font-bold">{label}</span>
+            <span className="font-bold text-white/80">
+              {label}
+            </span>
           )}
         </Link>
       );
@@ -54,13 +56,16 @@ export const NavLink = forwardRef<HTMLAnchorElement, NavLinkProps>(
         href={href}
         onClick={onClick}
         className={[
-          'inline-flex items-center px-4 py-2 rounded-full',
+          'inline-flex items-center px-3 xl:px-4 py-2 rounded-full whitespace-nowrap',
           'min-h-11',
-          'font-medium transition-all duration-200',
+          'font-medium transition-colors duration-200',
           'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+          // La página actual se marca con el mismo color del hover, sin
+          // píldora de fondo. El `font-semibold` la distingue del elemento
+          // que solo está bajo el puntero.
           isActive
-            ? 'text-brand-700 dark:text-white bg-brand-100 dark:bg-white/10'
-            : 'text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5',
+            ? 'text-brand-300 font-semibold'
+            : 'text-white/70 hover:text-brand-300',
         ].join(' ')}
         aria-current={isActive ? 'page' : undefined}
       >

@@ -47,16 +47,16 @@ export function TimeSlotGroup({ period, slots }: TimeSlotGroupProps) {
   return (
     <section aria-labelledby={`period-${period}`}>
       <header className="flex items-center gap-2 mb-3">
-        <span className="text-brand-600" aria-hidden="true">
+        <span className="text-brand-600 dark:text-brand-400" aria-hidden="true">
           <PeriodIcon period={period} />
         </span>
         <h2
           id={`period-${period}`}
-          className="text-sm font-bold text-text-secondary uppercase tracking-wide"
+          className="text-sm font-bold text-gray-600 dark:text-text-secondary uppercase tracking-wide"
         >
           {label}
         </h2>
-        <span className="text-xs text-text-muted">
+        <span className="text-xs text-gray-600 dark:text-text-muted">
           ({slots.length} {slots.length === 1 ? 'programa' : 'programas'})
         </span>
       </header>

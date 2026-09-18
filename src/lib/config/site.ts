@@ -37,10 +37,13 @@ export const MINISTRY_INFO = {
 
 /** Navegación principal */
 export const NAV_ITEMS = [
+  { label: 'Início', href: '/', isLive: false },
   { label: 'AO VIVO', href: '/', isLive: true },
   { label: 'Programação', href: '/programacao', isLive: false },
   { label: 'Programas', href: '/programas', isLive: false },
   { label: 'Vídeos', href: '/videos', isLive: false },
+  { label: 'Notícias', href: '/noticias', isLive: false },
+  { label: 'Canais', href: '/canais', isLive: false },
   { label: 'Sobre', href: '/sobre', isLive: false },
 ] as const;
 
@@ -77,6 +80,35 @@ export const SATELLITE_INFO = {
   channel: '7777',
 } as const;
 
+/**
+ * Canal en TV aberta. Se muestra destacado en la portada.
+ *
+ * Se guarda aparte de SATELLITE_INFO a propósito: aunque hoy el número
+ * coincide, "TV Aberta" y "satélite Vivensis" son dos formas distintas de
+ * sintonizar el canal y conviene poder cambiarlas por separado.
+ */
+export const OPEN_TV_INFO = {
+  label: 'TV Aberta',
+  channel: '7777',
+} as const;
+
+/**
+ * Parámetros de recepción por satélite, facilitados por el canal.
+ * Son los datos que hay que introducir en el receptor para sintonizar.
+ */
+export const SATELLITE_SIGNAL = {
+  title: 'Sinal de satélite — REDE ADVIR Brasil',
+  params: [
+    { label: 'Satélite', value: 'STAR ONE D2' },
+    { label: 'Banda', value: 'Ku' },
+    { label: 'Frequência', value: '11860 MHz' },
+    { label: 'Polarização', value: 'Horizontal (H)' },
+    { label: 'Taxa de Símbolos (SR)', value: '29892 kbps' },
+    { label: 'Padrão', value: 'DVB-S2 8psk' },
+    { label: 'Compressão de Vídeo', value: 'MPEG-4' },
+  ],
+} as const;
+
 /** Enlaces de políticas */
 export const POLICY_LINKS = [
   { label: 'Política de Privacidade', href: '/privacidade' },
@@ -106,25 +138,36 @@ export const GMI_LINKS = [
   { name: 'Assistir TV ao Vivo (GMI)', url: 'https://gospelministry.org/watch-tv/' },
 ] as const;
 
-/** Canales hermanos de la red GMI en el mundo */
-export const GMI_CHANNELS = [
+/**
+ * Canales hermanos de la red GMI en el mundo.
+ *
+ * Fuente: el proyecto de Red ADvenir (lib/gmiChannels.ts), que a su vez cita
+ * https://gospelministry.org/all-projects/ como lista oficial. Son 16, no los
+ * 7 que enseña su web pública: allí solo se muestran los que tienen logotipo.
+ *
+ * `url` es opcional a propósito: varios proyectos aún no tienen sitio propio
+ * y no se inventa uno — la tarjeta se pinta sin enlace.
+ */
+export const GMI_CHANNELS: readonly {
+  name: string;
+  region: string;
+  language: string;
+  url?: string;
+}[] = [
+  // Sede
   {
     name: 'Red ADvenir Internacional',
-    region: 'Bolivia / América Latina',
-    language: 'Español',
+    region: 'Bolívia',
+    language: 'Espanhol',
     url: 'https://redadvenir.org',
   },
+
+  // Américas
   {
-    name: 'TV Famille',
-    region: 'Martinica / Mundo francófono',
-    language: 'Francês',
-    url: 'https://tvfamille.org/',
-  },
-  {
-    name: 'Firstlight',
-    region: 'Nova Zelândia',
-    language: 'Inglês',
-    url: 'https://www.firstlight.org.nz/',
+    name: 'GMI TV',
+    region: 'Estados Unidos',
+    language: 'Inglês / Espanhol',
+    url: 'https://www.gmitv.org',
   },
   {
     name: 'Global Family Network',
@@ -133,10 +176,79 @@ export const GMI_CHANNELS = [
     url: 'https://gospelministry.org/global-family-network/',
   },
   {
-    name: 'Light Channel',
-    region: 'Europa (Alemanha, Itália, Hungria, etc.)',
-    language: 'Vários',
+    name: 'Télévision de la Famille',
+    region: 'Martinica / Caribe francófono',
+    language: 'Francês',
+    url: 'https://tvfamille.org/',
+  },
+  {
+    name: 'Mexico Broadcasting Project',
+    region: 'México',
+    language: 'Espanhol',
+  },
+
+  // Europa — rede Light Channel
+  {
+    name: 'Light Channel Germany',
+    region: 'Alemanha',
+    language: 'Alemão',
     url: 'https://www.lightchanneltv.de/',
+  },
+  {
+    name: 'Light Channel Italy',
+    region: 'Itália',
+    language: 'Italiano',
+    url: 'https://www.lightchannel.it/',
+  },
+  {
+    name: 'Light Channel Hungary',
+    region: 'Hungria',
+    language: 'Húngaro',
+    url: 'https://ltvhu.org/',
+  },
+  {
+    name: 'Light Channel Bulgaria',
+    region: 'Bulgária',
+    language: 'Búlgaro',
+    url: 'http://www.ltv.bg/',
+  },
+  {
+    name: 'Light Channel Romania',
+    region: 'Romênia',
+    language: 'Romeno',
+    url: 'https://speranta.tv/',
+  },
+  {
+    name: 'Light Channel Holland',
+    region: 'Países Baixos',
+    language: 'Holandês',
+  },
+
+  // Oceania
+  {
+    name: 'Firstlight Broadcasting',
+    region: 'Nova Zelândia',
+    language: 'Inglês',
+    url: 'https://www.firstlight.org.nz/',
+  },
+
+  // Ásia
+  {
+    name: "He's Coming Broadcasting Network Malaysia",
+    region: 'Malásia',
+    language: 'Malaio / Inglês',
+  },
+  {
+    name: "He's Coming Broadcasting Network Indonesia",
+    region: 'Indonésia',
+    language: 'Indonésio',
+  },
+
+  // África
+  {
+    name: '2nd Coming Broadcasting Network',
+    region: 'Quênia',
+    language: 'Suaíli / Inglês',
   },
 ] as const;
 
@@ -152,17 +264,21 @@ export type Platform = {
 export const PLATFORMS: Platform[] = [
   {
     name: 'Roku',
-    description: 'Disponível na Roku Channel Store',
-    href: 'https://channelstore.roku.com/details/237107/red-advenir',
+    // TODO: pedir al canal el enlace de la app de REDE ADVIR en Roku.
+    // El que había aquí era el de Red ADvenir (Bolívia), copiado del
+    // proyecto hermano: mandaba a la audiencia brasileña al canal en español.
+    description: 'Em breve na Roku Channel Store',
+    href: '#',
     icon: 'roku',
-    available: true,
+    available: false,
   },
   {
     name: 'Amazon Fire TV',
-    description: 'Instale pela Amazon Appstore',
-    href: 'https://www.amazon.com/Gospel-Ministries-International-Red-Advenir/dp/B07GVQJPL5',
+    // TODO: mismo caso que Roku — falta el enlace de la app brasileña.
+    description: 'Em breve na Amazon Appstore',
+    href: '#',
     icon: 'firetv',
-    available: true,
+    available: false,
   },
   {
     name: 'Android',

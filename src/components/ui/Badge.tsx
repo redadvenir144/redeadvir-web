@@ -8,9 +8,9 @@ interface BadgeProps extends HTMLAttributes<HTMLSpanElement> {
 }
 
 const variantStyles: Record<BadgeVariant, string> = {
-  default: 'bg-tv-elevated text-text-secondary',
-  brand: 'bg-brand-600/20 text-brand-400',
-  muted: 'bg-tv-border text-text-muted',
+  default: 'bg-gray-100 text-gray-700 dark:bg-tv-elevated dark:text-text-secondary',
+  brand: 'bg-brand-100 text-brand-800 dark:bg-brand-600/20 dark:text-brand-300',
+  muted: 'bg-gray-100 text-gray-600 dark:bg-tv-border dark:text-text-secondary',
 };
 
 export function Badge({

@@ -30,7 +30,7 @@ export function Skeleton({
   return (
     <div
       className={[
-        'bg-surface-muted',
+        'bg-gray-200 dark:bg-surface-muted',
         'motion-safe:animate-pulse',
         variantStyles[variant],
         className,

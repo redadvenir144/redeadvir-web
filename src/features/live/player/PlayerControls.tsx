@@ -159,7 +159,7 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
             type="button"
             onClick={togglePlay}
             className={[
-              'min-h-10 min-w-10 p-2',
+              'min-h-11 min-w-11 p-2',
               'text-white',
               'rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20',
               'transition-all duration-200 hover:scale-105',
@@ -184,7 +184,7 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
               type="button"
               onClick={toggleMute}
               className={[
-                'min-h-10 min-w-10 p-2',
+                'min-h-11 min-w-11 p-2',
                 'text-white',
                 'rounded-full hover:bg-white/10',
                 'transition-all duration-200',
@@ -214,7 +214,7 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
               step="0.1"
               value={isMuted ? 0 : volume}
               onChange={handleVolumeChange}
-              className="w-20 h-1 accent-brand-400 cursor-pointer appearance-none bg-white/30 rounded-full [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
+              className="w-20 min-h-11 accent-brand-400 cursor-pointer appearance-none bg-transparent [&::-webkit-slider-runnable-track]:h-1 [&::-webkit-slider-runnable-track]:rounded-full [&::-webkit-slider-runnable-track]:bg-white/30 [&::-moz-range-track]:h-1 [&::-moz-range-track]:rounded-full [&::-moz-range-track]:bg-white/30 [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-3 [&::-webkit-slider-thumb]:h-3 [&::-webkit-slider-thumb]:-mt-1 [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg"
               aria-label="Volume"
             />
           </div>
@@ -228,7 +228,7 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
               type="button"
               onClick={togglePiP}
               className={[
-                'min-h-10 min-w-10 p-2',
+                'min-h-11 min-w-11 p-2',
                 'text-white/70 hover:text-white',
                 'rounded-full hover:bg-white/10',
                 'transition-all duration-200',
@@ -247,7 +247,7 @@ export function PlayerControls({ videoRef, isVisible }: PlayerControlsProps) {
             type="button"
             onClick={toggleFullscreen}
             className={[
-              'min-h-10 min-w-10 p-2',
+              'min-h-11 min-w-11 p-2',
               'text-white',
               'rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20',
               'transition-all duration-200 hover:scale-105',

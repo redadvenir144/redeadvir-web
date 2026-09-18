@@ -24,7 +24,11 @@ function formatDisplayDate(isoDate: string): string {
     month: 'long',
   });
 
-  return formatter.format(date);
+  // Intl devuelve "quinta-feira, 17 de setembro". En pt-BR solo va en
+  // mayúscula la primera letra: el `capitalize` de CSS pondría mayúscula a
+  // cada palabra ("Quinta-Feira, 17 De Setembro"), que es incorrecto.
+  const formatted = formatter.format(date);
+  return formatted.charAt(0).toUpperCase() + formatted.slice(1);
 }
 
 /**
@@ -77,7 +81,7 @@ export function DateNavigator({ selectedDate }: DateNavigatorProps) {
             'flex items-center gap-1 px-3 py-2 min-h-11 min-w-11',
             'text-sm font-medium rounded-lg',
             'transition-colors',
-            'text-text-secondary hover:text-text-primary hover:bg-surface-muted',
+            'text-gray-600 dark:text-text-secondary hover:text-gray-900 dark:hover:text-text-primary hover:bg-gray-100 dark:hover:bg-surface-muted',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
           ].join(' ')}
           aria-label="Ver programação de ontem"
@@ -104,7 +108,7 @@ export function DateNavigator({ selectedDate }: DateNavigatorProps) {
             'transition-colors',
             isSelectedToday
               ? 'bg-brand-600 text-white'
-              : 'bg-surface-muted text-brand-600 hover:bg-brand-100',
+              : 'bg-gray-100 text-brand-700 hover:bg-gray-200 dark:bg-surface-muted dark:text-brand-300 dark:hover:bg-tv-hover',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
           ].join(' ')}
           aria-current={isSelectedToday ? 'date' : undefined}
@@ -119,7 +123,7 @@ export function DateNavigator({ selectedDate }: DateNavigatorProps) {
             'flex items-center gap-1 px-3 py-2 min-h-11 min-w-11',
             'text-sm font-medium rounded-lg',
             'transition-colors',
-            'text-text-secondary hover:text-text-primary hover:bg-surface-muted',
+            'text-gray-600 dark:text-text-secondary hover:text-gray-900 dark:hover:text-text-primary hover:bg-gray-100 dark:hover:bg-surface-muted',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
           ].join(' ')}
           aria-label="Ver programação de amanhã"
@@ -139,7 +143,7 @@ export function DateNavigator({ selectedDate }: DateNavigatorProps) {
       </div>
 
       {/* Fecha completa */}
-      <p className="text-center text-lg font-semibold text-text-primary capitalize break-words">
+      <p className="text-center text-lg font-semibold text-gray-900 dark:text-text-primary break-words">
         {displayDate}
       </p>
     </nav>

@@ -40,7 +40,7 @@ export function ProgramCard({ program, broadcastTimes, isLive = false }: Program
         {/* Contenido */}
         <div className="p-4">
           <div className="flex items-start justify-between gap-2 mb-2">
-            <h2 className="font-semibold text-text-primary group-hover:text-brand-600 transition-colors line-clamp-1">
+            <h2 className="font-semibold text-gray-900 dark:text-text-primary group-hover:text-brand-600 dark:group-hover:text-brand-400 transition-colors line-clamp-1">
               {program.title}
             </h2>
             <Badge variant="muted" className="flex-shrink-0">
@@ -48,7 +48,7 @@ export function ProgramCard({ program, broadcastTimes, isLive = false }: Program
             </Badge>
           </div>
 
-          <p className="text-sm text-text-secondary line-clamp-2 mb-3">
+          <p className="text-sm text-gray-600 dark:text-text-secondary line-clamp-2 mb-3">
             {program.description}
           </p>
 
@@ -58,7 +58,7 @@ export function ProgramCard({ program, broadcastTimes, isLive = false }: Program
               {broadcastTimes.map((time, index) => (
                 <span
                   key={index}
-                  className="inline-block px-2 py-0.5 text-xs font-medium text-text-muted bg-surface-muted rounded"
+                  className="inline-block px-2 py-0.5 text-xs font-medium text-gray-600 dark:text-text-muted bg-gray-100 dark:bg-surface-muted rounded"
                 >
                   {formatTime(time)}
                 </span>

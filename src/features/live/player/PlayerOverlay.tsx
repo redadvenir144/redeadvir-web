@@ -14,7 +14,7 @@ function LoadingSpinner() {
   return (
     <div className="flex flex-col items-center gap-4">
       <svg
-        className="h-12 w-12 animate-spin text-white"
+        className="h-12 w-12 motion-safe:animate-spin text-white"
         fill="none"
         viewBox="0 0 24 24"
         aria-hidden="true"
@@ -162,7 +162,7 @@ function BufferingOverlay() {
   return (
     <div className="bg-black/50 flex items-center justify-center">
       <svg
-        className="h-12 w-12 animate-spin text-white"
+        className="h-12 w-12 motion-safe:animate-spin text-white"
         fill="none"
         viewBox="0 0 24 24"
         aria-label="Carregando"

@@ -7,8 +7,8 @@
 @layer base {
   /* Variables de color para modo claro */
   :root {
-    --color-bg: 255 255 255;
-    --color-bg-card: 249 250 251;
+    --color-bg: 238 242 248;
+    --color-bg-card: 255 255 255;
     --color-bg-elevated: 243 244 246;
     --color-border: 229 231 235;
     --color-border-hover: 209 213 219;
@@ -39,7 +39,7 @@
   }
 
   :root :focus-visible {
-    @apply ring-offset-white;
+    @apply ring-offset-paper;
   }
 
   /* Respeta prefers-reduced-motion globalmente */
@@ -61,7 +61,7 @@
 
   /* Tema claro por defecto */
   body {
-    @apply bg-white text-gray-900 font-sans;
+    @apply bg-paper text-gray-900 font-sans;
     @apply transition-colors duration-300;
   }
 
@@ -77,7 +77,7 @@
   }
 
   ::-webkit-scrollbar-track {
-    @apply bg-gray-100;
+    @apply bg-paper-sunken;
   }
 
   .dark ::-webkit-scrollbar-track {
@@ -85,7 +85,7 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    @apply bg-gray-300 rounded-full;
+    @apply bg-paper-border rounded-full;
   }
 
   .dark ::-webkit-scrollbar-thumb {

@@ -8,7 +8,7 @@ interface DesktopNavProps {
 
 export function DesktopNav({ isChannelLive = false }: DesktopNavProps) {
   return (
-    <nav className="hidden md:flex items-center gap-1" aria-label="Navegação principal">
+    <nav className="hidden lg:flex items-center gap-0.5 xl:gap-1" aria-label="Navegação principal">
       {NAV_ITEMS.map((item) => (
         <NavLink
           key={item.href}

@@ -4,7 +4,6 @@ import { useState, useCallback, type ReactNode } from 'react';
 import { useHlsPlayer } from './useHlsPlayer';
 import { PlayerControls } from './PlayerControls';
 import { PlayerOverlay } from './PlayerOverlay';
-import { LiveBadge } from '@/components/ui';
 
 /**
  * URL del stream desde variable de entorno.
@@ -20,10 +19,20 @@ interface LivePlayerProps {
   fallbackContent?: ReactNode;
   /** Poster del video */
   poster?: string;
+  /**
+   * URL del stream editada desde el admin. Si viene vacía o no viene,
+   * se usa la variable de entorno.
+   */
+  streamUrl?: string;
 }
 
-export function LivePlayer({ fallbackContent, poster }: LivePlayerProps) {
-  const { videoRef, state, retry } = useHlsPlayer({ src: STREAM_URL });
+export function LivePlayer({
+  fallbackContent,
+  poster,
+  streamUrl,
+}: LivePlayerProps) {
+  const { videoRef, state, retry, isMuted, toggleMute, needsPlayGesture, play } =
+    useHlsPlayer({ src: streamUrl || STREAM_URL });
   const [showControls, setShowControls] = useState(false);
   const [controlsTimeout, setControlsTimeout] = useState<NodeJS.Timeout | null>(null);
 
@@ -85,14 +94,62 @@ export function LivePlayer({ fallbackContent, poster }: LivePlayerProps) {
               poster={poster}
               playsInline
               autoPlay
-              muted={false}
+              // Arranca en silencio a propósito: ningún navegador permite la
+              // reproducción automática con sonido. El aviso de abajo deja
+              // activarlo con un toque.
+              muted
             />
 
-            {/* Live badge - top left */}
-            {state === 'live' && (
-              <div className="absolute top-4 left-4 z-10">
-                <LiveBadge />
-              </div>
+            {/* El navegador bloqueó incluso el arranque en silencio */}
+            {state === 'live' && needsPlayGesture && (
+              <button
+                type="button"
+                onClick={play}
+                aria-label="Reproduzir transmissão ao vivo"
+                className={[
+                  'absolute inset-0 z-20',
+                  'flex flex-col items-center justify-center gap-3',
+                  'bg-black/50 text-white',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-white',
+                ].join(' ')}
+              >
+                <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/95 text-brand-700">
+                  <svg className="h-8 w-8 ml-1" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </span>
+                <span className="font-semibold">Assistir ao vivo</span>
+              </button>
+            )}
+
+            {/* Sonido: arriba a la derecha, sobre el vídeo */}
+            {(state === 'live' || state === 'buffering') && (
+              <button
+                type="button"
+                onClick={toggleMute}
+                aria-pressed={!isMuted}
+                aria-label={isMuted ? 'Ativar som' : 'Desativar som'}
+                className={[
+                  'absolute top-4 right-4 z-20',
+                  'inline-flex items-center gap-2 min-h-11 px-4 rounded-full',
+                  'bg-black/70 hover:bg-black/85 backdrop-blur-sm',
+                  'text-white text-sm font-semibold',
+                  'transition-colors',
+                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white',
+                ].join(' ')}
+              >
+                {isMuted ? (
+                  <svg className="h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm18.5-.5L20 7l-2.5 2.5L15 7l-1.5 1.5L16 11l-2.5 2.5L15 15l2.5-2.5L20 15l1.5-1.5L19 11l2.5-2.5z" />
+                  </svg>
+                ) : (
+                  <svg className="h-5 w-5 flex-shrink-0" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4.03v8.05A4.47 4.47 0 0016.5 12zM14 3.23v2.06a7 7 0 010 13.42v2.06a9 9 0 000-17.54z" />
+                  </svg>
+                )}
+                {/* El texto solo cuando hay algo que pedir al usuario */}
+                {isMuted && <span>Ativar som</span>}
+              </button>
             )}
 
             {/* Overlay de estados */}
@@ -110,7 +167,7 @@ export function LivePlayer({ fallbackContent, poster }: LivePlayerProps) {
               {/* Live indicator */}
               <span className="inline-flex items-center gap-2 text-sm font-bold tracking-wide text-white">
                 <span className="relative flex h-2.5 w-2.5">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-live opacity-75" />
+                  <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-live opacity-75" />
                   <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-live" />
                 </span>
                 AO VIVO

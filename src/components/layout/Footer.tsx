@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import {
   SITE_NAME,
   SITE_LONG_NAME,
@@ -23,8 +24,8 @@ function FooterLink({
     <Link
       href={href}
       className={[
-        'inline-block py-1',
-        'text-gray-600 hover:text-gray-900 dark:text-text-secondary dark:hover:text-white',
+        'inline-flex items-center min-h-11 min-w-11',
+        'text-text-secondary hover:text-white',
         'transition-colors',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
       ].join(' ')}
@@ -52,8 +53,7 @@ function SocialLink({
         'inline-flex items-center justify-center',
         'min-h-11 min-w-11 p-2',
         'rounded-full',
-        'text-gray-600 hover:text-gray-900 hover:bg-gray-100',
-        'dark:text-text-secondary dark:hover:text-white dark:hover:bg-tv-hover',
+        'text-text-secondary hover:text-white hover:bg-tv-hover',
         'transition-all duration-200',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
       ].join(' ')}
@@ -83,10 +83,10 @@ function AppStoreLink({
       rel="noopener noreferrer"
       className={[
         'inline-flex items-center gap-2 px-4 py-2',
-        'bg-gray-100 hover:bg-gray-200 dark:bg-tv-elevated dark:hover:bg-tv-hover',
-        'border border-gray-200 hover:border-brand-400 dark:border-tv-border dark:hover:border-brand-600/30',
+        'bg-tv-elevated hover:bg-tv-hover',
+        'border border-tv-border hover:border-brand-600/40',
         'rounded-xl',
-        'text-sm text-gray-900 dark:text-white',
+        'text-sm text-white',
         'transition-all duration-200',
         'min-h-11',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
@@ -155,14 +155,32 @@ export function Footer() {
   const hasSocialLinks = SOCIAL_LINKS.facebook || SOCIAL_LINKS.instagram || SOCIAL_LINKS.youtube;
 
   return (
-    <footer className="bg-gray-50 dark:bg-tv-card border-t border-gray-200 dark:border-tv-border text-gray-900 dark:text-white">
+    <footer className="bg-tv-card border-t border-tv-border text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
           {/* Columna institucional */}
           <div>
-            <h2 className="font-bold text-lg mb-4">{SITE_NAME}</h2>
-            <p className="text-gray-600 dark:text-text-secondary text-sm mb-4">{SITE_TAGLINE}</p>
-            <p className="text-gray-500 dark:text-text-muted text-sm mb-4">
+            <Link
+              href="/"
+              className={[
+                'inline-flex items-center mb-4',
+                'min-h-11',
+                'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
+              ].join(' ')}
+            >
+              <span className="sr-only">{SITE_NAME} - Ir para a página inicial</span>
+              <Image
+                src="/images/logo.png"
+                alt=""
+                width={512}
+                height={512}
+                className="h-16 w-auto"
+                aria-hidden="true"
+              />
+            </Link>
+            <h2 className="sr-only">{SITE_NAME}</h2>
+            <p className="text-text-secondary text-sm mb-4">{SITE_TAGLINE}</p>
+            <p className="text-text-muted text-sm mb-4">
               {SATELLITE_INFO.provider} · Canal {SATELLITE_INFO.channel}
             </p>
             {/* Redes sociales */}
@@ -197,7 +215,7 @@ export function Footer() {
                     href={link.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-gray-600 hover:text-gray-900 dark:text-text-secondary dark:hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 min-h-11 py-1 text-text-secondary hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
                   >
                     <BroadcastIcon />
                     {link.name}
@@ -227,36 +245,52 @@ export function Footer() {
 
           {/* Columna de apps */}
           <div>
+            {/* Aliado GMI — mismo tratamiento que en Red ADvenir */}
+            <div className="mb-8">
+              <h3 className="text-sm font-semibold uppercase tracking-wide mb-3">
+                Aliado
+              </h3>
+              <a
+                href={MINISTRY_INFO.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center min-h-11 rounded focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2"
+                aria-label={`${MINISTRY_INFO.name} (abre em nova aba)`}
+              >
+                {/*
+                  El logotipo oficial lleva el texto en blanco, pensado para
+                  fondo oscuro. La variante `-light` es el mismo logotipo con
+                  el texto en azul de marca, para que se lea en el tema claro.
+                */}
+                <Image
+                  src="/images/gmi-logo.png"
+                  alt={MINISTRY_INFO.name}
+                  width={424}
+                  height={117}
+                  className="h-11 w-auto"
+                />
+              </a>
+            </div>
+
             <h3 className="font-semibold mb-4">Baixe o App</h3>
             <div className="flex flex-col gap-3">
               <AppStoreLink href={APP_LINKS.android} store="android" />
               <AppStoreLink href={APP_LINKS.ios} store="ios" />
             </div>
 
-            {/* Aliado GMI */}
-            <div className="mt-6">
-              <a
-                href={MINISTRY_INFO.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-gray-500 hover:text-gray-900 dark:text-text-muted dark:hover:text-white transition-colors text-sm"
-              >
-                Aliado: {MINISTRY_INFO.name}
-              </a>
-            </div>
           </div>
         </div>
 
         {/* Versículo y copyright */}
-        <div className="mt-12 pt-8 border-t border-gray-200 dark:border-tv-border">
+        <div className="mt-12 pt-8 border-t border-tv-border">
           <div className="flex flex-col items-center gap-4 text-center">
             {/* Versículo */}
-            <p className="text-brand-600 dark:text-brand-400 text-sm italic max-w-2xl">
+            <p className="text-brand-400 text-sm italic max-w-2xl">
               {SITE_VERSE}
             </p>
 
             {/* Copyright */}
-            <p className="text-gray-500 dark:text-text-muted text-sm">
+            <p className="text-text-muted text-sm">
               © 2002–{currentYear} {SITE_LONG_NAME}. Avançando com voluntários junto a {MINISTRY_INFO.name}.
             </p>
           </div>

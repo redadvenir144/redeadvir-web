@@ -39,6 +39,21 @@ const config: Config = {
           border: '#1e3a5f',       // Bordes sutiles
           hover: '#1a3354',        // Hover en cards
         },
+        /**
+         * Superficies del tema claro.
+         *
+         * Grises neutros, no azulados: el lavado azul apagaba la página y
+         * competía con el propio azul de la marca. Aquí el color de marca
+         * queda libre para lo que importa —enlaces, botones y la línea de la
+         * cabecera— y las superficies solo marcan la jerarquía.
+         */
+        paper: {
+          DEFAULT: '#F1F3F6', // fondo de página
+          raised: '#FAFBFC',  // tarjetas y cabecera
+          header: '#FAFBFC',  // barra superior
+          sunken: '#E7EAEF',  // pie y superficies hundidas
+          border: '#DDE1E8',  // bordes neutros
+        },
         // Superficies para tema oscuro azul
         surface: {
           DEFAULT: '#0f2140',
@@ -46,11 +61,14 @@ const config: Config = {
           muted: '#1a3354',
           border: '#1e3a5f',
         },
-        // Texto para fondo oscuro
+        // Texto para fondo oscuro.
+        // `muted` era #71717A: 3.31:1 sobre tv-card, por debajo del AA 4.5:1
+        // que exige el proyecto. #949AA6 da 4.52:1 sobre la superficie más
+        // clara del tema (#1a3354) y 5.67:1 sobre tv-card.
         text: {
           primary: '#FFFFFF',
           secondary: '#A1A1AA',
-          muted: '#71717A',
+          muted: '#949AA6',
           inverse: '#0a0a0f',
         },
         // Acentos adicionales

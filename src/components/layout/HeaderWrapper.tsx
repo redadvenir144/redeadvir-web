@@ -29,11 +29,17 @@ export function HeaderWrapper({ children }: HeaderWrapperProps) {
     <header
       className={[
         'sticky top-0 z-50',
-        'text-gray-900 dark:text-white',
+        'text-white',
+        // La línea de la cabecera es el azul de marca, no un gris:
+        // ancla la identidad del canal en la parte de arriba.
+        'border-b-2 border-brand-600',
         'transition-all duration-300 motion-reduce:transition-none',
         isScrolled
-          ? 'py-3 bg-white/95 dark:bg-tv-bg/95 backdrop-blur-md border-b border-gray-200 dark:border-tv-border'
-          : 'py-4 bg-gradient-to-b from-white/80 dark:from-tv-bg/80 to-transparent',
+          ? 'py-3 bg-tv-bg/95 backdrop-blur-md'
+          // `bg-gradient-to-b` sólo define background-image: sin
+          // `dark:bg-transparent`, el `bg-white/90` seguía pintando el
+          // fondo también en tema oscuro y la barra salía gris clara.
+          : 'py-4 bg-tv-bg',
       ].join(' ')}
     >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">

@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/layout';
+import { socialMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { programsRepository, scheduleRepository } from '@/lib/data';
@@ -30,25 +32,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!program) {
     return {
-      title: 'Programa não encontrado | REDE ADVIR',
+      title: 'Programa não encontrado',
     };
   }
 
   return {
-    title: `${program.title} | ${SITE_NAME}`,
+    title: program.title,
     description: program.description,
-    openGraph: {
-      title: `${program.title} | ${SITE_NAME}`,
+    ...socialMetadata({
+      title: program.title,
       description: program.description,
       type: 'video.tv_show',
-      // TODO: usar imagen real cuando esté disponible
-      // images: [{ url: program.thumbnail.src, width: 1200, height: 630 }],
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${program.title} | ${SITE_NAME}`,
-      description: program.description,
-    },
+    }),
   };
 }
 
@@ -121,23 +116,12 @@ export default async function ProgramaPage({ params }: PageProps) {
       />
 
       <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
-        {/* Breadcrumb */}
-        <nav className="mb-6" aria-label="Navegação">
-          <ol className="flex items-center gap-2 text-sm text-text-muted">
-            <li>
-              <Link
-                href="/programas"
-                className="hover:text-brand-600 transition-colors"
-              >
-                Programas
-              </Link>
-            </li>
-            <li aria-hidden="true">›</li>
-            <li className="text-text-primary font-medium truncate">
-              {program.title}
-            </li>
-          </ol>
-        </nav>
+        <Breadcrumbs
+          items={[
+            { label: 'Programas', href: '/programas' },
+            { label: program.title },
+          ]}
+        />
 
         <article className="max-w-4xl">
           {/* Header del programa */}
@@ -158,7 +142,7 @@ export default async function ProgramaPage({ params }: PageProps) {
               {/* Info */}
               <div className="flex-1">
                 <div className="flex items-start gap-3 mb-3">
-                  <h1 className="text-2xl md:text-3xl font-bold text-text-primary">
+                  <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-text-primary">
                     {program.title}
                   </h1>
                 </div>
@@ -167,7 +151,7 @@ export default async function ProgramaPage({ params }: PageProps) {
                   {program.category.name}
                 </Badge>
 
-                <p className="text-text-secondary mb-6 leading-relaxed">
+                <p className="text-gray-600 dark:text-text-secondary mb-6 leading-relaxed">
                   {program.description}
                 </p>
 
@@ -188,7 +172,7 @@ export default async function ProgramaPage({ params }: PageProps) {
                   {isLive ? (
                     <>
                       <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
+                        <span className="motion-safe:animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75" />
                         <span className="relative inline-flex rounded-full h-2 w-2 bg-white" />
                       </span>
                       Assistir ao vivo
@@ -225,10 +209,10 @@ export default async function ProgramaPage({ params }: PageProps) {
           {/* Horarios de emisión */}
           {broadcastTimes.length > 0 && (
             <Card padding="md" className="mb-6">
-              <h2 className="text-lg font-semibold text-text-primary mb-4">
+              <h2 className="text-lg font-semibold text-gray-900 dark:text-text-primary mb-4">
                 Horários de exibição
               </h2>
-              <p className="text-sm text-text-muted mb-3">
+              <p className="text-sm text-gray-600 dark:text-text-muted mb-3">
                 Todos os dias • Horário de Brasília
               </p>
               <div className="flex flex-wrap gap-3">
@@ -237,10 +221,10 @@ export default async function ProgramaPage({ params }: PageProps) {
                     key={index}
                     className={[
                       'px-4 py-2 rounded-lg text-center',
-                      'bg-surface-muted',
+                      'bg-gray-100 dark:bg-surface-muted',
                     ].join(' ')}
                   >
-                    <span className="text-lg font-semibold text-text-primary tabular-nums">
+                    <span className="text-lg font-semibold text-gray-900 dark:text-text-primary tabular-nums">
                       {formatTime(time)}
                     </span>
                   </div>
@@ -251,31 +235,31 @@ export default async function ProgramaPage({ params }: PageProps) {
 
           {/* Info adicional */}
           <Card padding="md">
-            <h2 className="text-lg font-semibold text-text-primary mb-4">
+            <h2 className="text-lg font-semibold text-gray-900 dark:text-text-primary mb-4">
               Sobre o programa
             </h2>
             <dl className="grid grid-cols-2 gap-4 text-sm">
               <div>
-                <dt className="text-text-muted">Categoria</dt>
-                <dd className="font-medium text-text-primary">
+                <dt className="text-gray-600 dark:text-text-muted">Categoria</dt>
+                <dd className="font-medium text-gray-900 dark:text-text-primary">
                   {program.category.name}
                 </dd>
               </div>
               <div>
-                <dt className="text-text-muted">Duração</dt>
-                <dd className="font-medium text-text-primary">
+                <dt className="text-gray-600 dark:text-text-muted">Duração</dt>
+                <dd className="font-medium text-gray-900 dark:text-text-primary">
                   {program.durationMinutes} minutos
                 </dd>
               </div>
               <div>
-                <dt className="text-text-muted">Exibições diárias</dt>
-                <dd className="font-medium text-text-primary">
+                <dt className="text-gray-600 dark:text-text-muted">Exibições diárias</dt>
+                <dd className="font-medium text-gray-900 dark:text-text-primary">
                   {broadcastTimes.length}x por dia
                 </dd>
               </div>
               <div>
-                <dt className="text-text-muted">Transmissão</dt>
-                <dd className="font-medium text-text-primary">
+                <dt className="text-gray-600 dark:text-text-muted">Transmissão</dt>
+                <dd className="font-medium text-gray-900 dark:text-text-primary">
                   Ao vivo e satélite
                 </dd>
               </div>

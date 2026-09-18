@@ -115,14 +115,14 @@ export function MobileMenu({
         aria-label="Menu de navegação"
         className={[
           'fixed inset-x-0 top-0 z-50 md:hidden',
-          'bg-white dark:bg-tv-card',
+          'bg-tv-card',
           'shadow-xl',
           'max-h-screen overflow-y-auto',
         ].join(' ')}
       >
         {/* Header del menú */}
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 dark:border-tv-border">
-          <span className="font-bold text-lg text-gray-900 dark:text-white">Menu</span>
+        <div className="flex items-center justify-between p-4 border-b border-tv-border">
+          <span className="font-bold text-lg text-white">Menu</span>
           <div className="flex items-center gap-2">
             <ThemeToggle />
             <button
@@ -132,7 +132,7 @@ export function MobileMenu({
               'inline-flex items-center justify-center',
               'min-h-11 min-w-11 p-2',
               'rounded-lg',
-              'text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-tv-hover',
+              'text-white hover:text-brand-300',
               'transition-colors',
               'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
             ].join(' ')}
@@ -173,20 +173,22 @@ export function MobileMenu({
                       'min-h-11',
                       'font-medium transition-colors',
                       'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
-                      isActive
-                        ? 'bg-brand-100 dark:bg-brand-600/20 text-brand-700 dark:text-brand-400'
-                        : 'text-gray-600 dark:text-text-secondary hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-tv-hover',
+                      // AO VIVO es la llamada al directo, no una página:
+                      // sin esto se marcaba a la vez que Início.
+                      !item.isLive && isActive
+                        ? 'text-brand-300 font-semibold'
+                        : 'text-text-secondary hover:text-brand-300',
                       item.isLive && 'font-semibold',
                     ]
                       .filter(Boolean)
                       .join(' ')}
-                    aria-current={isActive ? 'page' : undefined}
+                    aria-current={!item.isLive && isActive ? 'page' : undefined}
                   >
                     {item.isLive ? (
                       isChannelLive ? (
                         <LiveBadge size="sm" />
                       ) : (
-                        <span className="text-brand-600 dark:text-brand-400 font-bold">
+                        <span className="text-brand-400 font-bold">
                           {item.label}
                         </span>
                       )
@@ -200,7 +202,7 @@ export function MobileMenu({
           </ul>
 
           {/* Botón Doar */}
-          <div className="mt-4 pt-4 border-t border-gray-200 dark:border-tv-border">
+          <div className="mt-4 pt-4 border-t border-tv-border">
             <Link
               href="/doar"
               onClick={onClose}

@@ -44,14 +44,17 @@ export function HeaderClient({ isChannelLive = false }: HeaderClientProps) {
         <div className="flex items-center justify-between">
           <Logo />
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 xl:gap-4">
             <DesktopNav isChannelLive={isChannelLive} />
+
+            {/* Theme Toggle */}
+            <ThemeToggle className="hidden lg:flex" />
 
             {/* Botón Doar - Desktop */}
             <Link
               href="/doar"
               className={[
-                'hidden md:inline-flex items-center gap-2',
+                'hidden lg:inline-flex items-center gap-2',
                 'px-4 py-2 rounded-full',
                 'bg-brand-600 hover:bg-brand-500 text-white font-semibold text-sm',
                 'transition-colors duration-200',
@@ -62,20 +65,17 @@ export function HeaderClient({ isChannelLive = false }: HeaderClientProps) {
               Doar
             </Link>
 
-            {/* Theme Toggle */}
-            <ThemeToggle className="hidden md:flex" />
-
             {/* Mobile menu button */}
             <button
               ref={mobileMenuButtonRef}
               type="button"
               onClick={toggleMenu}
               className={[
-                'md:hidden',
+                'lg:hidden',
                 'inline-flex items-center justify-center',
                 'min-h-11 min-w-11 p-2',
                 'rounded-full',
-                'text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/10',
+                'text-white/70 hover:text-white hover:bg-white/10',
                 'transition-all duration-200',
                 'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
               ].join(' ')}

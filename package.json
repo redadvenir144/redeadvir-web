@@ -6,13 +6,17 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "db:setup": "tsx --env-file=.env.local scripts/db-setup.ts",
+    "db:admin": "tsx --env-file=.env.local scripts/db-setup.ts --user"
   },
   "dependencies": {
     "hls.js": "^1.7.2",
     "next": "^14.0.0",
+    "postgres": "^3.4.9",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "server-only": "^0.0.1"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

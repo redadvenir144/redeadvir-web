@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/layout';
+import { socialMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { Suspense } from 'react';
 import { scheduleRepository } from '@/lib/data';
@@ -15,15 +17,14 @@ import {
 } from '@/lib/schedule/time';
 
 export const metadata: Metadata = {
-  title: 'Programação | Rede ADVIR',
+  title: 'Programação',
   description:
     'Confira a grade de programação da Rede ADVIR. Veja o que está no ar agora e o que vem a seguir.',
-  openGraph: {
-    title: 'Programação | Rede ADVIR',
+  ...socialMetadata({
+    title: 'Programação',
     description:
       'Confira a grade de programação da Rede ADVIR. Veja o que está no ar agora e o que vem a seguir.',
-    type: 'website',
-  },
+  }),
 };
 
 interface PageProps {
@@ -134,6 +135,8 @@ export default async function ProgramacaoPage({ searchParams }: PageProps) {
 
   return (
     <main className="max-w-7xl mx-auto px-6 lg:px-8 py-6">
+      <Breadcrumbs items={[{ label: 'Programação' }]} />
+
       <header className="mb-6">
         <h1 className="sr-only">Programação da Rede ADVIR</h1>
         <Suspense fallback={<Skeleton className="h-24 w-full" />}>

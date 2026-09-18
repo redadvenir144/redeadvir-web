@@ -37,17 +37,17 @@ export function CurrentProgramCard({ slot }: CurrentProgramCardProps) {
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-2">
           <LiveBadge />
-          <span className="text-sm text-text-muted">
+          <span className="text-sm text-gray-600 dark:text-text-muted">
             {startTime} – {endTime}
           </span>
         </div>
       </div>
 
-      <h2 className="text-xl font-bold text-text-primary mb-2 break-words">
+      <h2 className="text-xl font-bold text-gray-900 dark:text-text-primary mb-2 break-words">
         {slot.program.title}
       </h2>
 
-      <p className="text-sm text-text-secondary mb-4 line-clamp-2">
+      <p className="text-sm text-gray-600 dark:text-text-secondary mb-4 line-clamp-2">
         {slot.program.description}
       </p>
 

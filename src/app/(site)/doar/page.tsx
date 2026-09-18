@@ -1,17 +1,19 @@
 import type { Metadata } from 'next';
+import { Breadcrumbs } from '@/components/layout';
+import { socialMetadata } from '@/lib/seo';
 import Link from 'next/link';
 import { Card } from '@/components/ui';
 import { SITE_NAME, DONATION_INFO } from '@/lib/config/site';
 
 export const metadata: Metadata = {
-  title: `Doar | ${SITE_NAME}`,
+  title: 'Doar',
   description:
     'Apoie a missão da REDE ADVIR. Doe online via PayPal, cartão de crédito ou transferência bancária.',
-  openGraph: {
-    title: `Doar | ${SITE_NAME}`,
-    description: 'Apoie a missão da REDE ADVIR com sua doação.',
-    type: 'website',
-  },
+  ...socialMetadata({
+    title: 'Doar',
+    description:
+      'Apoie a missão da REDE ADVIR. Doe online via PayPal, cartão de crédito ou transferência bancária.',
+  }),
 };
 
 function HeartIcon() {
@@ -57,15 +59,17 @@ function PayPalIcon() {
 export default function DoarPage() {
   return (
     <main className="max-w-7xl mx-auto px-6 lg:px-8 py-8">
+      <Breadcrumbs items={[{ label: 'Doar' }]} />
+
       {/* Hero */}
       <header className="text-center mb-12">
         <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-brand-600/20 text-brand-400 mb-6">
           <HeartIcon />
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+        <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">
           Apoie Nossa Missão
         </h1>
-        <p className="text-xl text-text-secondary max-w-2xl mx-auto">
+        <p className="text-xl text-gray-600 dark:text-text-secondary max-w-2xl mx-auto">
           Sua doação ajuda a levar a mensagem de esperança do evangelho a milhões de lares
           através da {SITE_NAME}.
         </p>
@@ -79,10 +83,10 @@ export default function DoarPage() {
               <CreditCardIcon />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white mb-1">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                 Doação Online (Cartão ou PayPal)
               </h2>
-              <p className="text-text-secondary">
+              <p className="text-gray-600 dark:text-text-secondary">
                 Doe de forma segura com cartão de crédito, débito ou conta PayPal.
               </p>
             </div>
@@ -102,12 +106,12 @@ export default function DoarPage() {
               <PayPalIcon />
               Doar com PayPal
             </a>
-            <p className="text-sm text-text-muted self-center">
+            <p className="text-sm text-gray-600 dark:text-text-muted self-center">
               Você também pode pagar com cartão de crédito ou débito, sem precisar ter conta PayPal.
             </p>
           </div>
 
-          <p className="mt-6 text-sm text-text-muted bg-tv-elevated rounded-lg p-4">
+          <p className="mt-6 text-sm text-gray-600 dark:text-text-muted bg-gray-100 dark:bg-tv-elevated rounded-lg p-4">
             As empresas de cartão e PayPal cobram até 3% do valor. Para que o valor
             completo seja doado, considere transferência bancária ou cheque.
           </p>
@@ -122,35 +126,35 @@ export default function DoarPage() {
               <BankIcon />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white mb-1">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                 Transferência Bancária / Cheque
               </h2>
-              <p className="text-text-secondary">
+              <p className="text-gray-600 dark:text-text-secondary">
                 Envie sua doação diretamente para Gospel Ministries International.
               </p>
             </div>
           </div>
 
-          <div className="bg-tv-elevated rounded-lg p-6">
+          <div className="bg-gray-100 dark:bg-tv-elevated rounded-lg p-6">
             <dl className="space-y-4">
               <div>
-                <dt className="text-sm font-medium text-text-muted mb-1">Beneficiário</dt>
-                <dd className="text-white font-semibold">{DONATION_INFO.organization}</dd>
+                <dt className="text-sm font-medium text-gray-600 dark:text-text-muted mb-1">Beneficiário</dt>
+                <dd className="text-gray-900 dark:text-white font-semibold">{DONATION_INFO.organization}</dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-text-muted mb-1">Endereço</dt>
-                <dd className="text-white">{DONATION_INFO.address}</dd>
+                <dt className="text-sm font-medium text-gray-600 dark:text-text-muted mb-1">Endereço</dt>
+                <dd className="text-gray-900 dark:text-white">{DONATION_INFO.address}</dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-text-muted mb-1">Observação</dt>
-                <dd className="text-brand-400 font-medium">
+                <dt className="text-sm font-medium text-gray-600 dark:text-text-muted mb-1">Observação</dt>
+                <dd className="text-brand-700 dark:text-brand-400 font-medium">
                   Indique &quot;REDE ADVIR&quot; no campo de observações
                 </dd>
               </div>
             </dl>
           </div>
 
-          <p className="mt-4 text-sm text-text-muted">
+          <p className="mt-4 text-sm text-gray-600 dark:text-text-muted">
             Para dados bancários específicos (routing number, account number),
             entre em contato com a equipe de doações.
           </p>
@@ -165,10 +169,10 @@ export default function DoarPage() {
               <EnvelopeIcon />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-white mb-1">
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-1">
                 Dúvidas sobre Doações?
               </h2>
-              <p className="text-text-secondary">
+              <p className="text-gray-600 dark:text-text-secondary">
                 Entre em contato com nossa equipe de doações.
               </p>
             </div>
@@ -177,13 +181,22 @@ export default function DoarPage() {
           <a
             href={`mailto:${DONATION_INFO.email}`}
             className={[
-              'inline-flex items-center gap-2',
-              'px-6 py-3 bg-tv-elevated hover:bg-tv-hover border border-tv-border text-white rounded-xl',
+              // `max-w-full` + `break-all` evitan que un e-mail largo empuje
+              // la página y genere scroll horizontal a 360px.
+              'flex sm:inline-flex items-center gap-2 max-w-full min-h-11',
+              'px-4 sm:px-6 py-3 rounded-xl',
+              'bg-gray-100 hover:bg-gray-200 border border-paper-border text-gray-900',
+              'dark:bg-tv-elevated dark:hover:bg-tv-hover dark:border-tv-border dark:text-white',
               'transition-colors',
+              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 focus-visible:ring-offset-2',
             ].join(' ')}
           >
-            <EnvelopeIcon />
-            {DONATION_INFO.email}
+            <span className="flex-shrink-0">
+              <EnvelopeIcon />
+            </span>
+            <span className="min-w-0 break-all text-sm sm:text-base">
+              {DONATION_INFO.email}
+            </span>
           </a>
         </Card>
       </section>
@@ -221,7 +234,7 @@ export default function DoarPage() {
       <div className="mt-8 text-center">
         <Link
           href="/"
-          className="text-text-muted hover:text-white transition-colors"
+          className="inline-flex items-center justify-center min-h-11 px-4 text-gray-600 hover:text-gray-900 dark:text-text-muted dark:hover:text-white transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 rounded"
         >
           &larr; Voltar para a página inicial
         </Link>

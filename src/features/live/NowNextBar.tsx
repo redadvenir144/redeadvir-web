@@ -18,11 +18,21 @@ function formatTime(isoString: string): string {
   return formatter.format(date);
 }
 
+interface NowNextBarProps {
+  /**
+   * Muestra el enlace a la grade completa. Se apaga en la home, donde la
+   * lista de programación —que ya lleva su propio enlace— va justo debajo.
+   */
+  showScheduleLink?: boolean;
+}
+
 /**
  * Barra de programación actual y siguiente.
  * Server Component que consume el repositorio de schedule.
  */
-export async function NowNextBar() {
+export async function NowNextBar({
+  showScheduleLink = true,
+}: NowNextBarProps = {}) {
   const [currentSlot, nextSlot] = await Promise.all([
     scheduleRepository.getCurrentSlot(),
     scheduleRepository.getNextSlot(),
@@ -32,7 +42,7 @@ export async function NowNextBar() {
   if (!currentSlot) {
     return (
       <section
-        className="bg-surface border border-surface-border rounded-lg"
+        className="bg-paper-raised dark:bg-surface border border-paper-border dark:border-surface-border rounded-lg"
         aria-labelledby="schedule-empty-title"
       >
         <EmptyState
@@ -64,22 +74,22 @@ export async function NowNextBar() {
 
   return (
     <section
-      className="bg-surface border border-surface-border rounded-lg p-4"
+      className="bg-paper-raised dark:bg-surface border border-paper-border dark:border-surface-border rounded-lg p-4"
       aria-label="Programação atual"
     >
       <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
         {/* Bloque AGORA */}
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-2">
-            <span className="text-xs font-bold text-brand-600 uppercase tracking-wide">
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 uppercase tracking-wide">
               Agora
             </span>
-            <span className="text-xs text-text-muted">
+            <span className="text-xs text-gray-600 dark:text-text-muted">
               {startTime} – {endTime}
             </span>
           </div>
 
-          <h2 className="text-lg font-semibold text-text-primary truncate mb-3">
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-text-primary truncate mb-3">
             {currentSlot.program.title}
           </h2>
 
@@ -91,11 +101,11 @@ export async function NowNextBar() {
 
         {/* Bloque A SEGUIR (solo si existe) */}
         {nextSlot && (
-          <div className="md:text-right md:flex-shrink-0 md:ml-6 pt-2 md:pt-0 border-t border-surface-border md:border-t-0">
-            <span className="text-xs font-bold text-text-muted uppercase tracking-wide">
+          <div className="md:text-right md:flex-shrink-0 md:ml-6 pt-2 md:pt-0 border-t border-paper-border dark:border-surface-border md:border-t-0">
+            <span className="text-xs font-bold text-gray-600 dark:text-text-muted uppercase tracking-wide">
               A seguir
             </span>
-            <p className="text-sm text-text-secondary mt-1">
+            <p className="text-sm text-gray-700 dark:text-text-secondary mt-1">
               <span className="font-medium">{formatTime(nextSlot.startTime)}</span>
               {' · '}
               <span>{nextSlot.program.title}</span>
@@ -105,13 +115,14 @@ export async function NowNextBar() {
       </div>
 
       {/* Enlace a programación completa */}
-      <div className="mt-4 pt-3 border-t border-surface-border">
+      {showScheduleLink && (
+      <div className="mt-4 pt-3 border-t border-paper-border dark:border-surface-border">
         <Link
           href="/programacao"
           className={[
             'inline-flex items-center gap-1',
-            'text-sm font-medium text-brand-600',
-            'hover:text-brand-700 hover:underline',
+            'text-sm font-medium text-brand-600 dark:text-brand-400',
+            'hover:text-brand-700 dark:hover:text-brand-300 hover:underline',
             'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2',
             'min-h-11 min-w-11',
           ].join(' ')}
@@ -133,6 +144,7 @@ export async function NowNextBar() {
           </svg>
         </Link>
       </div>
+      )}
     </section>
   );
 }

@@ -16,6 +16,17 @@ interface UseHlsPlayerReturn {
   videoRef: React.RefObject<HTMLVideoElement>;
   state: PlayerState;
   retry: () => void;
+  /** Si el audio está silenciado. Arranca en true por la política de autoplay. */
+  isMuted: boolean;
+  /** Alterna el sonido. Requiere venir de una interacción del usuario. */
+  toggleMute: () => void;
+  /**
+   * Ni siquiera en silencio pudo arrancar (ajuste estricto del navegador o
+   * ahorro de datos). Hay que mostrar un botón de reproducir.
+   */
+  needsPlayGesture: boolean;
+  /** Arranca la reproducción desde un gesto del usuario. */
+  play: () => void;
 }
 
 /**
@@ -29,6 +40,8 @@ export function useHlsPlayer({ src }: UseHlsPlayerOptions): UseHlsPlayerReturn {
   const loadingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const retryTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const mediaRecoveryAttemptedRef = useRef(false);
+  const [isMuted, setIsMuted] = useState(true);
+  const [needsPlayGesture, setNeedsPlayGesture] = useState(false);
   // Trigger para reiniciar el efecto
   const [retryTrigger, setRetryTrigger] = useState(0);
 
@@ -97,6 +110,60 @@ export function useHlsPlayer({ src }: UseHlsPlayerOptions): UseHlsPlayerReturn {
   }, [scheduleRetry]);
 
   /**
+   * Intenta arrancar en silencio, que es lo único que los navegadores dejan
+   * hacer sin un gesto previo. Si aun así se bloquea, se pide el gesto.
+   */
+  const startMuted = useCallback((video: HTMLVideoElement) => {
+    video.muted = true;
+    setNeedsPlayGesture(false);
+
+    setIsMuted(true);
+
+    video
+      .play()
+      .catch((error: unknown) => {
+        console.warn('[LivePlayer] Reprodução automática bloqueada:', error);
+        setNeedsPlayGesture(true);
+      });
+  }, []);
+
+  /**
+   * Alterna el sonido desde una interacción del usuario.
+   *
+   * Al quitar el silencio se vuelve a llamar a play(): algunos navegadores
+   * pausan el vídeo en el momento en que deja de estar en silencio si no
+   * hubo un gesto claro.
+   */
+  const toggleMute = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const next = !video.muted;
+    video.muted = next;
+    setIsMuted(next);
+
+    if (!next) {
+      video.play().catch(() => setNeedsPlayGesture(true));
+    }
+  }, []);
+
+  /** Arranca con sonido desde una interacción del usuario. */
+  const play = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = false;
+    video
+      .play()
+      .then(() => {
+        setNeedsPlayGesture(false);
+        setIsMuted(false);
+      })
+      .catch((error: unknown) => {
+        console.error('[LivePlayer] play() falhou:', error);
+      });
+  }, []);
+
+  /**
    * Reintentar manualmente.
    */
   const retry = useCallback(() => {
@@ -152,7 +219,7 @@ export function useHlsPlayer({ src }: UseHlsPlayerOptions): UseHlsPlayerReturn {
         }
         setState('live');
         retryCountRef.current = 0;
-        video.play().catch(console.error);
+        startMuted(video);
       };
 
       const onError = () => {
@@ -175,7 +242,8 @@ export function useHlsPlayer({ src }: UseHlsPlayerOptions): UseHlsPlayerReturn {
     const hls = new Hls({
       enableWorker: true,
       lowLatencyMode: true,
-      debug: true, // Habilitar debug temporalmente
+      // Los logs de hls.js solo en desarrollo.
+      debug: process.env.NODE_ENV !== 'production',
     });
     hlsRef.current = hls;
 
@@ -190,9 +258,7 @@ export function useHlsPlayer({ src }: UseHlsPlayerOptions): UseHlsPlayerReturn {
       }
       setState('live');
       retryCountRef.current = 0;
-      video.play().catch((err) => {
-        console.warn('[LivePlayer] Autoplay blocked:', err.message);
-      });
+      startMuted(video);
     });
 
     hls.on(Hls.Events.ERROR, (_event, data) => {
@@ -235,12 +301,12 @@ export function useHlsPlayer({ src }: UseHlsPlayerOptions): UseHlsPlayerReturn {
       }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [src, retryTrigger]);
+  }, [src, retryTrigger, startMuted]);
 
   // Cleanup on unmount
   useEffect(() => {
     return cleanup;
   }, [cleanup]);
 
-  return { videoRef, state, retry };
+  return { videoRef, state, retry, isMuted, toggleMute, needsPlayGesture, play };
 }

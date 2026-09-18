@@ -20,13 +20,13 @@ const variantStyles: Record<ButtonVariant, string> = {
     'disabled:bg-brand-300 disabled:cursor-not-allowed',
   ].join(' '),
   secondary: [
-    'bg-surface border-2 border-brand-600 text-brand-600',
+    'bg-paper-raised dark:bg-surface border-2 border-brand-600 text-brand-700 dark:border-brand-400 dark:text-brand-400',
     'hover:bg-brand-50',
     'active:bg-brand-100',
     'disabled:border-brand-300 disabled:text-brand-300 disabled:cursor-not-allowed',
   ].join(' '),
   ghost: [
-    'bg-transparent text-brand-600',
+    'bg-transparent text-brand-700 dark:text-brand-400',
     'hover:bg-brand-50',
     'active:bg-brand-100',
     'disabled:text-brand-300 disabled:cursor-not-allowed',
@@ -42,7 +42,7 @@ const sizeStyles: Record<ButtonSize, string> = {
 function LoadingSpinner() {
   return (
     <svg
-      className="animate-spin-slow h-5 w-5"
+      className="motion-safe:animate-spin-slow h-5 w-5"
       xmlns="http://www.w3.org/2000/svg"
       fill="none"
       viewBox="0 0 24 24"

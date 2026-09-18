@@ -44,7 +44,7 @@ export function ScheduleSlotItem({ slot }: ScheduleSlotItemProps) {
     <article
       className={[
         'flex gap-3 py-3',
-        'border-b border-surface-border last:border-b-0',
+        'border-b border-paper-border dark:border-surface-border last:border-b-0',
         isPast ? 'opacity-60' : '',
       ].join(' ')}
     >
@@ -52,7 +52,7 @@ export function ScheduleSlotItem({ slot }: ScheduleSlotItemProps) {
       <div className="flex-shrink-0 w-14">
         <time
           dateTime={slot.startTime}
-          className="text-sm font-semibold text-text-secondary tabular-nums"
+          className="text-sm font-semibold text-gray-600 dark:text-text-secondary tabular-nums"
         >
           {startTime}
         </time>
@@ -60,12 +60,12 @@ export function ScheduleSlotItem({ slot }: ScheduleSlotItemProps) {
 
       {/* Contenido */}
       <div className="flex-1 min-w-0">
-        <h3 className="text-base font-medium text-text-primary truncate">
+        <h3 className="text-base font-medium text-gray-900 dark:text-text-primary truncate">
           {slot.program.title}
         </h3>
         <div className="flex items-center gap-2 mt-1 flex-wrap">
           <Badge variant="muted">{slot.program.category.name}</Badge>
-          <span className="text-xs text-text-muted whitespace-nowrap">
+          <span className="text-xs text-gray-600 dark:text-text-muted whitespace-nowrap">
             {formatDuration(slot.program.durationMinutes)}
           </span>
         </div>
